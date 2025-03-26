@@ -1,0 +1,15 @@
+C:\Users\kauavicente\Documents\Aulas C#\Aula_4\bin\Debug\net8.0\Aula_4.exe
+C:\Users\kauavicente\Documents\Aulas C#\Aula_4\bin\Debug\net8.0\Aula_4.deps.json
+C:\Users\kauavicente\Documents\Aulas C#\Aula_4\bin\Debug\net8.0\Aula_4.runtimeconfig.json
+C:\Users\kauavicente\Documents\Aulas C#\Aula_4\bin\Debug\net8.0\Aula_4.dll
+C:\Users\kauavicente\Documents\Aulas C#\Aula_4\bin\Debug\net8.0\Aula_4.pdb
+C:\Users\kauavicente\Documents\Aulas C#\Aula_4\obj\Debug\net8.0\Aula_4.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\kauavicente\Documents\Aulas C#\Aula_4\obj\Debug\net8.0\Aula_4.AssemblyInfoInputs.cache
+C:\Users\kauavicente\Documents\Aulas C#\Aula_4\obj\Debug\net8.0\Aula_4.AssemblyInfo.cs
+C:\Users\kauavicente\Documents\Aulas C#\Aula_4\obj\Debug\net8.0\Aula_4.csproj.CoreCompileInputs.cache
+C:\Users\kauavicente\Documents\Aulas C#\Aula_4\obj\Debug\net8.0\Aula_4.sourcelink.json
+C:\Users\kauavicente\Documents\Aulas C#\Aula_4\obj\Debug\net8.0\Aula_4.dll
+C:\Users\kauavicente\Documents\Aulas C#\Aula_4\obj\Debug\net8.0\refint\Aula_4.dll
+C:\Users\kauavicente\Documents\Aulas C#\Aula_4\obj\Debug\net8.0\Aula_4.pdb
+C:\Users\kauavicente\Documents\Aulas C#\Aula_4\obj\Debug\net8.0\Aula_4.genruntimeconfig.cache
+C:\Users\kauavicente\Documents\Aulas C#\Aula_4\obj\Debug\net8.0\ref\Aula_4.dll

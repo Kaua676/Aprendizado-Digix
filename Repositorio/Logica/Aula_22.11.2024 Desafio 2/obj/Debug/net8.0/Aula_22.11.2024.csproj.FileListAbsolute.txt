@@ -1,0 +1,5 @@
+C:\Users\kauavicente\Documents\Aulas C#\Repositorio-Digix\Aula_22.11.2024\obj\Debug\net8.0\Aula_22.11.2024.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\kauavicente\Documents\Aulas C#\Repositorio-Digix\Aula_22.11.2024\obj\Debug\net8.0\Aula_22.11.2024.AssemblyInfoInputs.cache
+C:\Users\kauavicente\Documents\Aulas C#\Repositorio-Digix\Aula_22.11.2024\obj\Debug\net8.0\Aula_22.11.2024.AssemblyInfo.cs
+C:\Users\kauavicente\Documents\Aulas C#\Repositorio-Digix\Aula_22.11.2024\obj\Debug\net8.0\Aula_22.11.2024.csproj.CoreCompileInputs.cache
+C:\Users\kauavicente\Documents\Aulas C#\Repositorio-Digix\Aula_22.11.2024\obj\Debug\net8.0\Aula_22.11.2024.sourcelink.json
