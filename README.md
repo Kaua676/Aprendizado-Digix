@@ -90,9 +90,9 @@ dotnet run nome_do_arquivo.cs
 ## 📬 Contato
 Se você tiver dúvidas, sugestões ou quiser trocar ideias sobre os projetos, sinta-se à vontade para entrar em contato comigo:
 
-Email: [Seu Email]
+Email: [kadom.dev@outlook.com]
 
-LinkedIn: [Seu LinkedIn]
+LinkedIn: [Kaua676]
 
 ---
 
@@ -109,12 +109,6 @@ LinkedIn: [Seu LinkedIn]
 
 - **Como Usar:**  
   Fornece o passo a passo de como clonar o repositório, navegar entre os diretórios e executar os projetos. Isso facilita a vida de quem for usar o repositório, ajudando a configurar e rodar os exemplos.
-
-- **Contribuições:**  
-  Como o repositório está aberto para contribuições, essa seção orienta os usuários sobre como podem contribuir para o projeto, seja para melhorar a documentação, adicionar novos exemplos ou corrigir problemas.
-
-- **Licença:**  
-  Aqui é especificada a licença do projeto. A **MIT License** é uma licença permissiva e amplamente utilizada em projetos open-source.
 
 - **Contato:**  
   Inclui suas informações de contato (pode ser email ou LinkedIn) para quem desejar falar diretamente com você sobre o repositório.
