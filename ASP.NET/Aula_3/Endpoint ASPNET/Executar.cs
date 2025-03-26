@@ -42,6 +42,8 @@ namespace Endpoints
             app.UseSwagger();
             app.UseSwaggerUI();
 
+            app.UseStaticFiles(); // Para poder habilitar arquivos estaticos
+
             app.UseHttpsRedirection(); // Redireciona para HTTPS
 
             app.UseAuthorization(); // Habilita a autorização
