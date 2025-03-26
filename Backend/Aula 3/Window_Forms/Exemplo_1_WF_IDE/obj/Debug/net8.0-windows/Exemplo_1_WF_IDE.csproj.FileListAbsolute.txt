@@ -1,0 +1,15 @@
+C:\Users\kauavicente\Documents\Aulas C#\Backend-Digix\Aula 3\Window_Forms\Exemplo_1_WF_IDE\bin\Debug\net8.0-windows\Exemplo_1_WF_IDE.exe
+C:\Users\kauavicente\Documents\Aulas C#\Backend-Digix\Aula 3\Window_Forms\Exemplo_1_WF_IDE\bin\Debug\net8.0-windows\Exemplo_1_WF_IDE.deps.json
+C:\Users\kauavicente\Documents\Aulas C#\Backend-Digix\Aula 3\Window_Forms\Exemplo_1_WF_IDE\bin\Debug\net8.0-windows\Exemplo_1_WF_IDE.runtimeconfig.json
+C:\Users\kauavicente\Documents\Aulas C#\Backend-Digix\Aula 3\Window_Forms\Exemplo_1_WF_IDE\bin\Debug\net8.0-windows\Exemplo_1_WF_IDE.dll
+C:\Users\kauavicente\Documents\Aulas C#\Backend-Digix\Aula 3\Window_Forms\Exemplo_1_WF_IDE\bin\Debug\net8.0-windows\Exemplo_1_WF_IDE.pdb
+C:\Users\kauavicente\Documents\Aulas C#\Backend-Digix\Aula 3\Window_Forms\Exemplo_1_WF_IDE\obj\Debug\net8.0-windows\Exemplo_1_WF_IDE.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\kauavicente\Documents\Aulas C#\Backend-Digix\Aula 3\Window_Forms\Exemplo_1_WF_IDE\obj\Debug\net8.0-windows\Exemplo_1_WF_IDE.AssemblyInfoInputs.cache
+C:\Users\kauavicente\Documents\Aulas C#\Backend-Digix\Aula 3\Window_Forms\Exemplo_1_WF_IDE\obj\Debug\net8.0-windows\Exemplo_1_WF_IDE.AssemblyInfo.cs
+C:\Users\kauavicente\Documents\Aulas C#\Backend-Digix\Aula 3\Window_Forms\Exemplo_1_WF_IDE\obj\Debug\net8.0-windows\Exemplo_1_WF_IDE.csproj.CoreCompileInputs.cache
+C:\Users\kauavicente\Documents\Aulas C#\Backend-Digix\Aula 3\Window_Forms\Exemplo_1_WF_IDE\obj\Debug\net8.0-windows\Exemplo_1_WF_IDE.sourcelink.json
+C:\Users\kauavicente\Documents\Aulas C#\Backend-Digix\Aula 3\Window_Forms\Exemplo_1_WF_IDE\obj\Debug\net8.0-windows\Exemplo_1_WF_IDE.dll
+C:\Users\kauavicente\Documents\Aulas C#\Backend-Digix\Aula 3\Window_Forms\Exemplo_1_WF_IDE\obj\Debug\net8.0-windows\refint\Exemplo_1_WF_IDE.dll
+C:\Users\kauavicente\Documents\Aulas C#\Backend-Digix\Aula 3\Window_Forms\Exemplo_1_WF_IDE\obj\Debug\net8.0-windows\Exemplo_1_WF_IDE.pdb
+C:\Users\kauavicente\Documents\Aulas C#\Backend-Digix\Aula 3\Window_Forms\Exemplo_1_WF_IDE\obj\Debug\net8.0-windows\Exemplo_1_WF_IDE.genruntimeconfig.cache
+C:\Users\kauavicente\Documents\Aulas C#\Backend-Digix\Aula 3\Window_Forms\Exemplo_1_WF_IDE\obj\Debug\net8.0-windows\ref\Exemplo_1_WF_IDE.dll
