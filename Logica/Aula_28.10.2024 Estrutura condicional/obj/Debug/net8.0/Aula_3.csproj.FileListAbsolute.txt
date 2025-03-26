@@ -1,0 +1,30 @@
+C:\Users\kauavicente\Documents\Aulas C#\Aula_3\obj\Debug\net8.0\Aula_3.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\kauavicente\Documents\Aulas C#\Aula_3\obj\Debug\net8.0\Aula_3.AssemblyInfoInputs.cache
+C:\Users\kauavicente\Documents\Aulas C#\Aula_3\obj\Debug\net8.0\Aula_3.AssemblyInfo.cs
+C:\Users\kauavicente\Documents\Aulas C#\Aula_3\obj\Debug\net8.0\Aula_3.csproj.CoreCompileInputs.cache
+C:\Users\kauavicente\Documents\Aulas C#\Aula_3\obj\Debug\net8.0\Aula_3.sourcelink.json
+C:\Users\kauavicente\Documents\Aulas C#\Aula_3\bin\Debug\net8.0\Aula_3.exe
+C:\Users\kauavicente\Documents\Aulas C#\Aula_3\bin\Debug\net8.0\Aula_3.deps.json
+C:\Users\kauavicente\Documents\Aulas C#\Aula_3\bin\Debug\net8.0\Aula_3.runtimeconfig.json
+C:\Users\kauavicente\Documents\Aulas C#\Aula_3\bin\Debug\net8.0\Aula_3.dll
+C:\Users\kauavicente\Documents\Aulas C#\Aula_3\bin\Debug\net8.0\Aula_3.pdb
+C:\Users\kauavicente\Documents\Aulas C#\Aula_3\obj\Debug\net8.0\Aula_3.dll
+C:\Users\kauavicente\Documents\Aulas C#\Aula_3\obj\Debug\net8.0\refint\Aula_3.dll
+C:\Users\kauavicente\Documents\Aulas C#\Aula_3\obj\Debug\net8.0\Aula_3.pdb
+C:\Users\kauavicente\Documents\Aulas C#\Aula_3\obj\Debug\net8.0\Aula_3.genruntimeconfig.cache
+C:\Users\kauavicente\Documents\Aulas C#\Aula_3\obj\Debug\net8.0\ref\Aula_3.dll
+C:\Users\kauavicente\Documents\Aulas C#\Repositorio-Digix\Aula_28.10.2024 Estrutura condicional\bin\Debug\net8.0\Aula_3.exe
+C:\Users\kauavicente\Documents\Aulas C#\Repositorio-Digix\Aula_28.10.2024 Estrutura condicional\bin\Debug\net8.0\Aula_3.deps.json
+C:\Users\kauavicente\Documents\Aulas C#\Repositorio-Digix\Aula_28.10.2024 Estrutura condicional\bin\Debug\net8.0\Aula_3.runtimeconfig.json
+C:\Users\kauavicente\Documents\Aulas C#\Repositorio-Digix\Aula_28.10.2024 Estrutura condicional\bin\Debug\net8.0\Aula_3.dll
+C:\Users\kauavicente\Documents\Aulas C#\Repositorio-Digix\Aula_28.10.2024 Estrutura condicional\bin\Debug\net8.0\Aula_3.pdb
+C:\Users\kauavicente\Documents\Aulas C#\Repositorio-Digix\Aula_28.10.2024 Estrutura condicional\obj\Debug\net8.0\Aula_3.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\kauavicente\Documents\Aulas C#\Repositorio-Digix\Aula_28.10.2024 Estrutura condicional\obj\Debug\net8.0\Aula_3.AssemblyInfoInputs.cache
+C:\Users\kauavicente\Documents\Aulas C#\Repositorio-Digix\Aula_28.10.2024 Estrutura condicional\obj\Debug\net8.0\Aula_3.AssemblyInfo.cs
+C:\Users\kauavicente\Documents\Aulas C#\Repositorio-Digix\Aula_28.10.2024 Estrutura condicional\obj\Debug\net8.0\Aula_3.csproj.CoreCompileInputs.cache
+C:\Users\kauavicente\Documents\Aulas C#\Repositorio-Digix\Aula_28.10.2024 Estrutura condicional\obj\Debug\net8.0\Aula_3.sourcelink.json
+C:\Users\kauavicente\Documents\Aulas C#\Repositorio-Digix\Aula_28.10.2024 Estrutura condicional\obj\Debug\net8.0\Aula_3.dll
+C:\Users\kauavicente\Documents\Aulas C#\Repositorio-Digix\Aula_28.10.2024 Estrutura condicional\obj\Debug\net8.0\refint\Aula_3.dll
+C:\Users\kauavicente\Documents\Aulas C#\Repositorio-Digix\Aula_28.10.2024 Estrutura condicional\obj\Debug\net8.0\Aula_3.pdb
+C:\Users\kauavicente\Documents\Aulas C#\Repositorio-Digix\Aula_28.10.2024 Estrutura condicional\obj\Debug\net8.0\Aula_3.genruntimeconfig.cache
+C:\Users\kauavicente\Documents\Aulas C#\Repositorio-Digix\Aula_28.10.2024 Estrutura condicional\obj\Debug\net8.0\ref\Aula_3.dll

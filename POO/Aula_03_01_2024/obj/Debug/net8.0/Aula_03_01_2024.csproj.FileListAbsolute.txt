@@ -1,0 +1,15 @@
+C:\Users\kauavicente\Documents\Aulas C#\Repositorio-Digix\POO\Aula_03_01_2024\obj\Debug\net8.0\Aula_03_01_2024.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\kauavicente\Documents\Aulas C#\Repositorio-Digix\POO\Aula_03_01_2024\obj\Debug\net8.0\Aula_03_01_2024.AssemblyInfoInputs.cache
+C:\Users\kauavicente\Documents\Aulas C#\Repositorio-Digix\POO\Aula_03_01_2024\obj\Debug\net8.0\Aula_03_01_2024.AssemblyInfo.cs
+C:\Users\kauavicente\Documents\Aulas C#\Repositorio-Digix\POO\Aula_03_01_2024\obj\Debug\net8.0\Aula_03_01_2024.csproj.CoreCompileInputs.cache
+C:\Users\kauavicente\Documents\Aulas C#\Repositorio-Digix\POO\Aula_03_01_2024\obj\Debug\net8.0\Aula_03_01_2024.sourcelink.json
+C:\Users\kauavicente\Documents\Aulas C#\Repositorio-Digix\POO\Aula_03_01_2024\bin\Debug\net8.0\Aula_03_01_2024.exe
+C:\Users\kauavicente\Documents\Aulas C#\Repositorio-Digix\POO\Aula_03_01_2024\bin\Debug\net8.0\Aula_03_01_2024.deps.json
+C:\Users\kauavicente\Documents\Aulas C#\Repositorio-Digix\POO\Aula_03_01_2024\bin\Debug\net8.0\Aula_03_01_2024.runtimeconfig.json
+C:\Users\kauavicente\Documents\Aulas C#\Repositorio-Digix\POO\Aula_03_01_2024\bin\Debug\net8.0\Aula_03_01_2024.dll
+C:\Users\kauavicente\Documents\Aulas C#\Repositorio-Digix\POO\Aula_03_01_2024\bin\Debug\net8.0\Aula_03_01_2024.pdb
+C:\Users\kauavicente\Documents\Aulas C#\Repositorio-Digix\POO\Aula_03_01_2024\obj\Debug\net8.0\Aula_03_01_2024.dll
+C:\Users\kauavicente\Documents\Aulas C#\Repositorio-Digix\POO\Aula_03_01_2024\obj\Debug\net8.0\refint\Aula_03_01_2024.dll
+C:\Users\kauavicente\Documents\Aulas C#\Repositorio-Digix\POO\Aula_03_01_2024\obj\Debug\net8.0\Aula_03_01_2024.pdb
+C:\Users\kauavicente\Documents\Aulas C#\Repositorio-Digix\POO\Aula_03_01_2024\obj\Debug\net8.0\Aula_03_01_2024.genruntimeconfig.cache
+C:\Users\kauavicente\Documents\Aulas C#\Repositorio-Digix\POO\Aula_03_01_2024\obj\Debug\net8.0\ref\Aula_03_01_2024.dll

@@ -1,0 +1,26 @@
+C:\Users\kauavicente\Documents\Aulas C#\Repositorio-Digix\Aula 01.11.2024 Matrizes\obj\Debug\net8.0\Aula 01.11.2024 Matrizes.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\kauavicente\Documents\Aulas C#\Repositorio-Digix\Aula 01.11.2024 Matrizes\obj\Debug\net8.0\Aula 01.11.2024 Matrizes.AssemblyInfoInputs.cache
+C:\Users\kauavicente\Documents\Aulas C#\Repositorio-Digix\Aula 01.11.2024 Matrizes\obj\Debug\net8.0\Aula 01.11.2024 Matrizes.AssemblyInfo.cs
+C:\Users\kauavicente\Documents\Aulas C#\Repositorio-Digix\Aula 01.11.2024 Matrizes\obj\Debug\net8.0\Aula 01.11.2024 Matrizes.csproj.CoreCompileInputs.cache
+C:\Users\kauavicente\Documents\Aulas C#\Repositorio-Digix\Aula 01.11.2024 Matrizes\obj\Debug\net8.0\Aula 01.11.2024 Matrizes.sourcelink.json
+C:\Users\kauavicente\Documents\Aulas C#\Repositorio-Digix\Aula 01.11.2024 Matrizes\bin\Debug\net8.0\Aula 01.11.2024 Matrizes.exe
+C:\Users\kauavicente\Documents\Aulas C#\Repositorio-Digix\Aula 01.11.2024 Matrizes\bin\Debug\net8.0\Aula 01.11.2024 Matrizes.deps.json
+C:\Users\kauavicente\Documents\Aulas C#\Repositorio-Digix\Aula 01.11.2024 Matrizes\bin\Debug\net8.0\Aula 01.11.2024 Matrizes.runtimeconfig.json
+C:\Users\kauavicente\Documents\Aulas C#\Repositorio-Digix\Aula 01.11.2024 Matrizes\bin\Debug\net8.0\Aula 01.11.2024 Matrizes.dll
+C:\Users\kauavicente\Documents\Aulas C#\Repositorio-Digix\Aula 01.11.2024 Matrizes\bin\Debug\net8.0\Aula 01.11.2024 Matrizes.pdb
+C:\Users\kauavicente\Documents\Aulas C#\Repositorio-Digix\Aula 01.11.2024 Matrizes\obj\Debug\net8.0\Aula 01.11.2024 Matrizes.dll
+C:\Users\kauavicente\Documents\Aulas C#\Repositorio-Digix\Aula 01.11.2024 Matrizes\obj\Debug\net8.0\refint\Aula 01.11.2024 Matrizes.dll
+C:\Users\kauavicente\Documents\Aulas C#\Repositorio-Digix\Aula 01.11.2024 Matrizes\obj\Debug\net8.0\Aula 01.11.2024 Matrizes.pdb
+C:\Users\kauavicente\Documents\Aulas C#\Repositorio-Digix\Aula 01.11.2024 Matrizes\obj\Debug\net8.0\Aula 01.11.2024 Matrizes.genruntimeconfig.cache
+C:\Users\kauavicente\Documents\Aulas C#\Repositorio-Digix\Aula 01.11.2024 Matrizes\obj\Debug\net8.0\ref\Aula 01.11.2024 Matrizes.dll
+C:\Users\kauavicente\Documents\Aulas C#\Repositorio-Digix\Aula_01.11.2024 Matrizes\bin\Debug\net8.0\Aula 01.11.2024 Matrizes.exe
+C:\Users\kauavicente\Documents\Aulas C#\Repositorio-Digix\Aula_01.11.2024 Matrizes\bin\Debug\net8.0\Aula 01.11.2024 Matrizes.deps.json
+C:\Users\kauavicente\Documents\Aulas C#\Repositorio-Digix\Aula_01.11.2024 Matrizes\bin\Debug\net8.0\Aula 01.11.2024 Matrizes.runtimeconfig.json
+C:\Users\kauavicente\Documents\Aulas C#\Repositorio-Digix\Aula_01.11.2024 Matrizes\bin\Debug\net8.0\Aula 01.11.2024 Matrizes.dll
+C:\Users\kauavicente\Documents\Aulas C#\Repositorio-Digix\Aula_01.11.2024 Matrizes\obj\Debug\net8.0\Aula 01.11.2024 Matrizes.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\kauavicente\Documents\Aulas C#\Repositorio-Digix\Aula_01.11.2024 Matrizes\obj\Debug\net8.0\Aula 01.11.2024 Matrizes.csproj.CoreCompileInputs.cache
+C:\Users\kauavicente\Documents\Aulas C#\Repositorio-Digix\Aula_01.11.2024 Matrizes\obj\Debug\net8.0\Aula 01.11.2024 Matrizes.sourcelink.json
+C:\Users\kauavicente\Documents\Aulas C#\Repositorio-Digix\Aula_01.11.2024 Matrizes\obj\Debug\net8.0\Aula 01.11.2024 Matrizes.dll
+C:\Users\kauavicente\Documents\Aulas C#\Repositorio-Digix\Aula_01.11.2024 Matrizes\obj\Debug\net8.0\Aula 01.11.2024 Matrizes.pdb
+C:\Users\kauavicente\Documents\Aulas C#\Repositorio-Digix\Aula_01.11.2024 Matrizes\obj\Debug\net8.0\Aula 01.11.2024 Matrizes.genruntimeconfig.cache
+C:\Users\kauavicente\Documents\Aulas C#\Repositorio-Digix\Aula_01.11.2024 Matrizes\bin\Debug\net8.0\Aula 01.11.2024 Matrizes.pdb
