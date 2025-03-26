@@ -1,0 +1,23 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v8.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v8.0": {
+      "Exemplo_1_WF_IDE/1.0.0": {
+        "runtime": {
+          "Exemplo_1_WF_IDE.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "Exemplo_1_WF_IDE/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

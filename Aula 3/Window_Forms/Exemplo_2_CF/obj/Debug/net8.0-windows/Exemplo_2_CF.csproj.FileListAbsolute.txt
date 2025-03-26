@@ -1,0 +1,15 @@
+C:\Users\kauavicente\Documents\Aulas C#\Backend-Digix\Aula 3\Window_Forms\Exemplo_2_CF\bin\Debug\net8.0-windows\Exemplo_2_CF.exe
+C:\Users\kauavicente\Documents\Aulas C#\Backend-Digix\Aula 3\Window_Forms\Exemplo_2_CF\bin\Debug\net8.0-windows\Exemplo_2_CF.deps.json
+C:\Users\kauavicente\Documents\Aulas C#\Backend-Digix\Aula 3\Window_Forms\Exemplo_2_CF\bin\Debug\net8.0-windows\Exemplo_2_CF.runtimeconfig.json
+C:\Users\kauavicente\Documents\Aulas C#\Backend-Digix\Aula 3\Window_Forms\Exemplo_2_CF\bin\Debug\net8.0-windows\Exemplo_2_CF.dll
+C:\Users\kauavicente\Documents\Aulas C#\Backend-Digix\Aula 3\Window_Forms\Exemplo_2_CF\bin\Debug\net8.0-windows\Exemplo_2_CF.pdb
+C:\Users\kauavicente\Documents\Aulas C#\Backend-Digix\Aula 3\Window_Forms\Exemplo_2_CF\obj\Debug\net8.0-windows\Exemplo_2_CF.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\kauavicente\Documents\Aulas C#\Backend-Digix\Aula 3\Window_Forms\Exemplo_2_CF\obj\Debug\net8.0-windows\Exemplo_2_CF.AssemblyInfoInputs.cache
+C:\Users\kauavicente\Documents\Aulas C#\Backend-Digix\Aula 3\Window_Forms\Exemplo_2_CF\obj\Debug\net8.0-windows\Exemplo_2_CF.AssemblyInfo.cs
+C:\Users\kauavicente\Documents\Aulas C#\Backend-Digix\Aula 3\Window_Forms\Exemplo_2_CF\obj\Debug\net8.0-windows\Exemplo_2_CF.csproj.CoreCompileInputs.cache
+C:\Users\kauavicente\Documents\Aulas C#\Backend-Digix\Aula 3\Window_Forms\Exemplo_2_CF\obj\Debug\net8.0-windows\Exemplo_2_CF.sourcelink.json
+C:\Users\kauavicente\Documents\Aulas C#\Backend-Digix\Aula 3\Window_Forms\Exemplo_2_CF\obj\Debug\net8.0-windows\Exemplo_2_CF.dll
+C:\Users\kauavicente\Documents\Aulas C#\Backend-Digix\Aula 3\Window_Forms\Exemplo_2_CF\obj\Debug\net8.0-windows\refint\Exemplo_2_CF.dll
+C:\Users\kauavicente\Documents\Aulas C#\Backend-Digix\Aula 3\Window_Forms\Exemplo_2_CF\obj\Debug\net8.0-windows\Exemplo_2_CF.pdb
+C:\Users\kauavicente\Documents\Aulas C#\Backend-Digix\Aula 3\Window_Forms\Exemplo_2_CF\obj\Debug\net8.0-windows\Exemplo_2_CF.genruntimeconfig.cache
+C:\Users\kauavicente\Documents\Aulas C#\Backend-Digix\Aula 3\Window_Forms\Exemplo_2_CF\obj\Debug\net8.0-windows\ref\Exemplo_2_CF.dll
