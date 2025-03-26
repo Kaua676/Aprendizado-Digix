@@ -52,3 +52,51 @@ CodeCoverage/
 *.VisualState.xml
 TestResult.xml
 nunit-*.xml
+
+# .NET build results
+[Dd]ebug/
+[Dd]ebugPublic/
+[Dd]ist/
+[Dd]evelopment/
+[Dd]ebugFast/
+[Dd]ist/
+bin/
+obj/
+
+# User-specific files
+.vs/
+.vscode/
+.idea/
+
+# Windows Installer files
+*.cab
+*.msi
+*.msm
+*.msp
+
+# Windows Installer log files
+*.cab
+*.msi
+*.msm
+*.msp
+
+# Windows Installer
+*.pdb
+*.exe
+*.dll
+
+# User-specific files
+*.user
+*.userosscache
+*.suo
+*.userprefs
+
+# Build results
+bin/
+obj/
+
+# Npm package folders
+node_modules/
+
+# ASP.NET Scaffolding
+ScaffoldingReadMe.txt

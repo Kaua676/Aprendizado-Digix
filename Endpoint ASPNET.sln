@@ -1,0 +1,30 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ASP.NET", "ASP.NET", "{A9239465-F5C6-468A-A01A-5168F19FCDF3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Aula_3", "Aula_3", "{C9146587-6650-4EF1-92F7-9A771C0BB2C0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Endpoint ASPNET", "ASP.NET\Aula_3\Endpoint ASPNET\Endpoint ASPNET.csproj", "{E1F51A64-1CE4-4EF1-9D4A-AFFD784C3EFA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E1F51A64-1CE4-4EF1-9D4A-AFFD784C3EFA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E1F51A64-1CE4-4EF1-9D4A-AFFD784C3EFA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E1F51A64-1CE4-4EF1-9D4A-AFFD784C3EFA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E1F51A64-1CE4-4EF1-9D4A-AFFD784C3EFA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{C9146587-6650-4EF1-92F7-9A771C0BB2C0} = {A9239465-F5C6-468A-A01A-5168F19FCDF3}
+		{E1F51A64-1CE4-4EF1-9D4A-AFFD784C3EFA} = {C9146587-6650-4EF1-92F7-9A771C0BB2C0}
+	EndGlobalSection
+EndGlobal
