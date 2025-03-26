@@ -1,0 +1,567 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap');
+
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+html{
+    scroll-behavior: smooth;
+    font-size: 10px;
+}
+
+body{
+    font-family: "Poppins", sans-serif;
+}
+
+/*/////////////////////////////Header/////////////////////////////*/
+#header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 15px 30px;
+    position: fixed;
+    background: 'transparent';
+    transition: all .3s ease-out;
+    z-index: 2;
+}
+
+.header-title {
+    text-decoration: none;
+}
+
+.header-title h1 {
+    color: #fff;
+    font-size: 2rem;
+    transition: opacity .3s ease;
+}
+
+.header-title h1:hover {
+    opacity: .8;
+}
+
+.navbar {
+    max-width: 350px;
+    width: 100%;
+}
+
+.navbar-links {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: 100%;
+}
+  
+.navbar-links li {
+    list-style: none;
+    transition: all .2s ease-in-out;
+}
+  
+.navbar-links li a {
+    text-decoration: none;
+    color: #fff;
+    font-size: 1.4rem;
+    font-weight: 700;
+}
+
+/*/////////////////////////////Pagina Home/////////////////////////////*/
+
+#person{
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    background: #032030;
+}
+
+.person-content{
+    height: 100%;
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.person-content h1{
+    color: #fff;
+    padding: 0px 4px;
+    font-size: 4.5rem;
+    line-height: 6rem;
+}
+
+.person-name h1:nth-child(3){
+    color: #006da4;
+}
+
+.stacks-content{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin-top: 6rem;
+}
+
+.stacks-content h3{
+    font-size: 1.15rem;
+    margin-left: 20px;
+    color: #fff;
+}
+
+.stacks ul{
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+}
+
+.stacks ul li{
+    display: flex;
+    align-items: center;
+    list-style: none;
+    position: relative;
+    margin: 10px;
+    padding: 10px;
+}
+
+.stacks ul li img{
+    width: 30px;
+    height: auto;
+    transition: transform .3s ease;
+}
+
+.stacks ul li img:hover{
+    transform: scale(1.2);
+    cursor: pointer;
+}
+
+.stacks ul li div:hover::after{
+    content:attr(data);
+    position: absolute;
+    top: 50px;
+    left: 10px;
+    width: 20px;
+    height: 20px;
+    color: #fff;
+}
+
+.person-background{
+    height: 100vh;
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    flex-direction: column;
+    background-image: url(./imagens/img1.jpg);
+    background-size: cover;
+    background-position: top center;
+    z-index: 1;
+}
+
+.person-background::after{
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    opacity: .7;
+    z-index: -1;
+    background:
+    linear-gradient(90deg, transparent 30%, #032030), linear-gradient(180deg, transparent 30%, #032030), linear-gradient(270deg, transparent 30%, #032030);
+}
+
+.wrapper-profile-photo{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 8px;
+    margin: 20px 15px;
+    border-radius: 50%;
+    width: 200px;
+    background: #006da4;
+}
+
+.profile-photo{
+    border-radius: 50%;
+    width: 100%;
+}
+
+.links img{
+    width: 30px;
+    height: 30px;
+    margin: 10px;
+    filter: brightness(.8);
+    transition: all .3s ease;
+}
+
+.links img:hover{
+    transform: scale(1.2);
+    filter: brightness(1);
+}
+
+/*/////////////////////////////Pagina Sobre/////////////////////////////*/
+
+#about{
+    height: 100vh;
+    width: 100%;
+    background: #032030;
+    display: flex;
+    color: #fff;
+}
+
+.background-about{
+    width: 50%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.img-wrapper{
+    height: 100%;
+    width: 100%;
+    position: relative;
+}
+
+.img-wrapper:after{
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background:
+    linear-gradient(.25turn, transparent 80%, #032030), linear-gradient(0.5turn, transparent 30%, rgb(3, 32, 48)), linear-gradient(0turn, transparent 30%, #032030);
+}
+
+.img-wrapper img{
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+
+.box-about{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    width: 50%;
+    padding: 3rem;
+}
+
+.section-subtitle h2 p{
+    display: inline-block;
+    font-size: 3rem;
+}
+
+.section-subtitle h2 p:nth-child(2) span{
+    padding: 3px 5px;
+    border-radius: 4px;
+    background: #006da4;
+}
+
+.box-about h3{
+    margin: 2rem;
+    font-size: 2rem;
+    display: grid;
+    place-items: center;
+}
+
+.box-about h3 p{
+    display: inline-block;
+    margin: 10px;
+    padding: 2px 4px;
+    border-radius: 4px;
+    width: fit-content;
+    background: #006da4;
+
+}
+
+.box-about h4{
+    margin: 1rem 3rem;
+    font-size: 1.5rem;
+}
+
+.box-about h4 p{
+    display: inline;
+    padding: 2px 4px;
+    color: #006da4;
+    font-size: bold;
+    font-weight: 1.75rem;
+}
+
+.button-cta{
+    display: flex;
+    max-width: 190px;
+    margin: 4rem 3rem;
+}
+
+.button-cta a{
+    display: inline-block;
+    width: 100%;
+    max-width: 172px;
+    padding: 10px;
+    margin-bottom: 3rem;
+    font-family: 'Poppins';
+    font-size: 1.3rem;
+    font-weight: 700;
+    letter-spacing: .15rem;
+    background: #fff;
+    color: #000;
+    text-decoration: none;
+    text-align: center;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.button-cta a:hover{
+    transition: all .3s ease;
+    filter: brightness(.8);
+}
+
+/*/////////////////////////////Pagina Projetos/////////////////////////////*/
+
+#projects{
+    height: 90vh;
+    width: 100%;
+    background: #032030;
+    flex-direction: column;
+    display: flex;
+    color: #fff;
+    padding-top: 10rem;
+}
+
+.projects-title h2{
+    margin: 3rem;
+    padding: 1rem;
+    font-size: 3rem;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+}
+
+.wrapper-projects{
+    display: flex;
+    margin-top: 2rem;
+    height: 500px;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+}
+
+.card-projects{
+    width: 320px;
+    height: 450px;
+    padding: 30px 20px 20px;
+    margin: 0px 10px;
+    background-color: #fff;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    border-radius: 20px;
+    position: relative;
+}
+
+.card-projects::after{
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 40%;
+    width: 100%;
+    background: #006da4;
+    border-radius: 20px 20px 0px 0px;
+}
+
+.content-project{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    z-index: 1;
+    
+}
+
+.img-project{
+    height: 240px;
+    width: 250px;
+    overflow: hidden;
+    position: relative;
+    border-radius: 30px;
+    border: 4px solid #006da4;
+    margin: 0 auto;
+}
+
+.img-project a img{
+    height: 98.5%;
+    width: 98.5%;
+    border-radius: 30px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    border: 2px solid #fff;
+    cursor: pointer;
+    transition: transform .3s ease-out;
+}
+
+.img-project a img:hover{
+    transform: scale(1.1);
+}
+
+.content-project span{
+    color: black;
+    font-weight: bold;
+    font-size: 2rem;
+    margin: .75rem auto .5rem auto;
+}
+
+.content-project p{
+    color: #3d3d4b;
+    font-weight: bold;
+    font-size: 1.4rem;
+    margin: 0rem .75rem;
+}
+
+.cta-project{
+    width: 200px;
+    margin: auto auto 15px auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.cta-project a{
+    padding: 5px 16px;
+    font-size: 1.25rem;
+    color: #fff;
+    background: #006da4;
+    border-radius: 10px;
+    text-decoration: none;
+    transition: opacity .3s ease;
+}
+
+.cta-project a:hover{
+    opacity: .7;
+}
+
+/*/////////////////////////////Pagina Contato/////////////////////////////*/
+
+#contacts{
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    background: #032030;
+}
+
+#contact-content{
+    display: flex;
+    width: 50%;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    border-radius: 16px;
+    color: #fff;
+}
+
+#contacts h2{
+    color: #f5f5f5;
+    font-size: 40px;
+    margin: 10px;
+}
+
+#contacts form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+form input, form textarea{
+    padding: 20px 15px;
+    border-radius: 16px;
+    width: 50%;
+    outline: none;
+    border: 0;
+    margin-bottom: 30px;
+    font-size: 15px;
+}
+
+form textarea{
+    padding: 15px;
+    outline: none;
+    border-radius: 16px;
+    height: 15rem;
+    border: 0;
+    font-size: 15px;
+    margin-bottom: 30px;
+    resize: none;
+}
+
+form button{
+    padding: 15px;
+    cursor: pointer;
+    width: 50%;
+    font-size: 16px;
+    background: transparent;
+    border: 2px solid #f5f5f5;
+    color: #f5f5f5;
+    transition: all 0.5s;
+    margin-bottom: 20px;
+}
+
+form button:hover{
+    background-color: #f5f5f5;
+    color: #101026;
+    border-radius: 16px;
+}
+
+.background-contact{
+    width: 50%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.img-contact-wrapper{
+    height: 100%;
+    width: 100%;
+    position: relative;
+}
+
+.img-contact-wrapper:after{
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background:
+    linear-gradient(0.75turn, transparent 30%, #032030), linear-gradient(0turn, transparent 30%, #032030), linear-gradient(0.5turn, transparent 30%, #032030);;
+}
+
+.img-contact-wrapper img{
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+
+/*/////////////////////////////Footer/////////////////////////////*/
+
+#footer{
+    height: 5vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: auto;
+    background: #032030;
+}
+
+.container-footer h3{
+    color: #fff;
+}
