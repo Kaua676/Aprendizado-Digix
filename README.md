@@ -69,16 +69,19 @@ cd Aprendizado-Digix
 cd ASP.NET  # ou qualquer outra pasta
 ```
 3. **Executar projetos**:
-ASP.NET:
 ```
+ASP.NET:
+
 dotnet run
 ```
-SQL:
 ```
+SQL:
+
 sqlcmd -S <servidor> -d <banco> -i script.sql
 ```
-C#:
 ```
+C#:
+
 dotnet run nome_do_arquivo.cs
 ```
 
