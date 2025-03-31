@@ -41,13 +41,13 @@ function salvarMaquina(event) {
   event.preventDefault();
 
   // Pegar os valores dos campos
-  const maquinaId   = document.getElementById("maquinaId").value;
-  const tipo        = document.getElementById("tipo").value;
-  const velocidade  = parseInt(document.getElementById("velocidade").value);
-  const hardDisk    = parseInt(document.getElementById("hardDisk").value);
-  const placaRede   = parseInt(document.getElementById("placaRede").value);
-  const memoriaRam  = parseInt(document.getElementById("memoriaRam").value);
-  const id_Usuario  = parseInt(document.getElementById("idUsuario").value);
+  const maquinaId = document.getElementById("maquinaId").value;
+  const tipo = document.getElementById("tipo").value;
+  const velocidade = parseInt(document.getElementById("velocidade").value);
+  const hardDisk = parseInt(document.getElementById("hardDisk").value);
+  const placaRede = parseInt(document.getElementById("placaRede").value);
+  const memoriaRam = parseInt(document.getElementById("memoriaRam").value);
+  const id_Usuario = parseInt(document.getElementById("idUsuario").value);
 
   // Montar objeto com as propriedades que o C# espera
   // (cuidado com maiúsculas e minúsculas)
@@ -58,7 +58,7 @@ function salvarMaquina(event) {
     hardDisk,
     placaRede,
     memoriaRam,
-    id_Usuario
+    id_UsuarioF
   };
 
   // Decide se é POST ou PUT
@@ -70,16 +70,16 @@ function salvarMaquina(event) {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(maquina)
   })
-  .then(response => {
-    if (!response.ok) throw new Error("Falha ao salvar máquina");
-    return response.json();
-  })
-  .then(() => {
-    // Limpa o form e recarrega a tabela
-    document.getElementById("maquinaForm").reset();
-    carregarMaquinas();
-  })
-  .catch(error => console.error(error));
+    .then(response => {
+      if (!response.ok) throw new Error("Falha ao salvar máquina");
+      return response.json();
+    })
+    .then(() => {
+      // Limpa o form e recarrega a tabela
+      document.getElementById("maquinaForm").reset();
+      carregarMaquinas();
+    })
+    .catch(error => console.error(error));
 }
 
 function editarMaquina(id) {
@@ -91,13 +91,13 @@ function editarMaquina(id) {
     })
     .then(maquina => {
       // Preenche o formulário
-      document.getElementById("maquinaId").value  = maquina.maquinaId;
-      document.getElementById("tipo").value       = maquina.tipo;
+      document.getElementById("maquinaId").value = maquina.maquinaId;
+      document.getElementById("tipo").value = maquina.tipo;
       document.getElementById("velocidade").value = maquina.velocidade;
-      document.getElementById("hardDisk").value   = maquina.hardDisk;
-      document.getElementById("placaRede").value  = maquina.placaRede;
+      document.getElementById("hardDisk").value = maquina.hardDisk;
+      document.getElementById("placaRede").value = maquina.placaRede;
       document.getElementById("memoriaRam").value = maquina.memoriaRam;
-      document.getElementById("idUsuario").value  = maquina.id_Usuario;
+      document.getElementById("idUsuario").value = maquina.id_Usuario;
     })
     .catch(error => console.error("Erro ao buscar máquina:", error));
 }

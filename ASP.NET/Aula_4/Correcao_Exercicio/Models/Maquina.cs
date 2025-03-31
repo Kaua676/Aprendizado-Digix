@@ -34,6 +34,6 @@ namespace Correcao_Exercicio.Models
         [ForeignKey(nameof(Usuario))]
         public int Id_Usuario { get; set; }
 
-        public Usuario Usuario { get; set; } = null!;
+        public Usuario? Usuario { get; set; }
     }
 }

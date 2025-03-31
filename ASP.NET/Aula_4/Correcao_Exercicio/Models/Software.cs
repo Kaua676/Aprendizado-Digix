@@ -28,6 +28,6 @@ namespace Correcao_Exercicio.Models
         [ForeignKey(nameof(Maquina))]
         public int MaquinaId { get; set; }
 
-        public Maquina Maquina { get; init; } = null!; // Navegação
+        public Maquina? Maquina { get; set; }
     }
 }
