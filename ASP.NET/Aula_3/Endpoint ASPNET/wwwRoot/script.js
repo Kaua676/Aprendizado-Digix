@@ -1,77 +1,102 @@
-const url = "http://localhost:5000/Usuario";
+const url = "http://localhost:5000/Usuarios";
 
-document.getElementById("usuarioForm").addEventListener("submit", SalvarUsuario);
-CarregarUsuarios();
+async function Get() {
+    try {
+        const response = await fetch(url);
+        if (response.ok) {
+            const usuarios = await response.json();
+            console.log(usuarios);
 
-function CarregarUsuarios() {
-    fetch(url)
-        .then(response => response.json())
-        .then(data => {
-            const tbody = document.querySelector("#tabelaUsuarios tbody");
-            if (!tbody) return;
-
+            const tbody = document.querySelector("table tbody");
             tbody.innerHTML = "";
-            data.forEach(usuario => {
-                tbody.innerHTML += `
-                    <tr>
-                        <td>${usuario.id}</td>
-                        <td>${usuario.nome}</td>
-                        <td>${usuario.ramal}</td>
-                        <td>${usuario.especialidade}</td>
-                        <td>
-                            <button class="edit" onclick="EditarUsuario(${usuario.id})">Editar</button>
-                            <button class="delete" onclick="ExcluirUsuario(${usuario.id})">Deletar</button>
-                        </td>
-                    </tr>
+
+            usuarios.forEach((usuario) => {
+                const row = `
+                <tr>
+                    <td>${usuario.nome}</td>
+                    <td>${usuario.password}</td>
+                    <td>${usuario.ramal}</td>
+                    <td>${usuario.especialidade}</td>
+                    <td>
+                        <button class="btn btn-primary" onclick="Editar(${usuario.id})">Editar</button>
+                        <button class="btn btn-danger" onclick="Delete(${usuario.id})">Excluir</button>
+                    </td>
+                </tr>
                 `;
+                tbody.innerHTML += row;
             });
-        })
-        .catch(error => console.error("Erro ao carregar usuários:", error));
+        }
+    } catch (error) {
+        console.log("Erro ao buscar usuários:", error);
+    }
 }
 
-function SalvarUsuario(event) {
-    event.preventDefault();
+async function Salvar(evento) {
+    evento.preventDefault();
 
     const id = document.getElementById("id").value;
     const nome = document.getElementById("nome").value;
-    const senha = document.getElementById("senha").value;
-    const ramal = document.getElementById("ramal").value;
+    const password = document.getElementById("password").value;
+    const ramal = parseInt(document.getElementById("ramal").value);
     const especialidade = document.getElementById("especialidade").value;
 
-    const usuario = { nome, senha, ramal, especialidade };
-
     const metodo = id ? "PUT" : "POST";
-    const urlFinal = id ? `${url}/${id}` : url;
+    const endpoint = id ? `${url}/${id}` : url;
 
-    fetch(urlFinal, {
+    const response = await fetch(endpoint, {
         method: metodo,
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(usuario)
-    })
-        .then(response => response.json())
-        .then(() => {
-            document.getElementById("usuarioForm").reset();
-            CarregarUsuarios();
-        })
-        .catch(error => console.error("Erro ao salvar usuário:", error));
+        body: JSON.stringify({ nome, password, ramal, especialidade })
+    });
+
+    if (response.ok) {
+        alert(id ? "Usuário atualizado!" : "Usuário cadastrado!");
+        document.getElementById("userForm").reset();
+        document.getElementById("id").value = "";
+        document.getElementById("botao").innerText = "Cadastrar";
+        Get();
+    } else {
+        alert("Erro ao salvar usuário.");
+    }
 }
 
-function EditarUsuario(id) {
-    fetch(`${url}/${id}`)
-        .then(response => response.json())
-        .then(usuario => {
+
+async function Delete(id) {
+    if (confirm("Tem certeza que deseja excluir este usuário?")) {
+        const response = await fetch(`${url}/${id}`, { method: "DELETE" });
+        if (response.ok) {
+            alert("Usuário excluído!");
+            Get();
+        } else {
+            alert("Erro ao excluir usuário.");
+        }
+    }
+}
+
+
+async function Editar(id) {
+    try {
+        const response = await fetch("http://localhost:5000/Usuarios")
+        if (response.ok) {
+            const usuarios = await response.json();
+
+
+            const usuario = usuarios.find(user => user.id == id);
+            if (!usuario) {
+                alert("Usuário não encontrado!");
+                return;
+            }
             document.getElementById("id").value = usuario.id;
             document.getElementById("nome").value = usuario.nome;
+            document.getElementById("password").value = usuario.password;
             document.getElementById("ramal").value = usuario.ramal;
             document.getElementById("especialidade").value = usuario.especialidade;
-        })
-        .catch(error => console.error("Erro ao carregar usuário:", error));
+
+            document.getElementById("botao").innerText = "Atualizar";
+        }
+    } catch (error) {
+        console.log("Erro ao buscar usuário para edição:", error);
+    }
 }
 
-function ExcluirUsuario(id) {
-    if (!confirm("Tem certeza que deseja excluir este usuário?")) return;
-
-    fetch(`${url}/${id}`, { method: "DELETE" })
-        .then(() => CarregarUsuarios())
-        .catch(error => console.error("Erro ao excluir usuário:", error));
-}
+document.addEventListener("DOMContentLoaded", Get);
