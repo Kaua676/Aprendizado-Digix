@@ -1,3 +1,5 @@
 {
-    "dotnet.defaultSolution": "ASP.sln"
+    "dotnet.defaultSolution": "ASP.sln",
+    "codesnap.backgroundColor": "",
+    "codesnap.boxShadow": ""
 }

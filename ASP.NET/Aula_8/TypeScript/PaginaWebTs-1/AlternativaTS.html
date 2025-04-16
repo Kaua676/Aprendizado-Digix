@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/typescript@latest/lib/typescript.js"></script>
+    <script src="https://unpkg.com/babel-standalone@latest/babel.min.js"></script>
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>Ts direto no navegador</h1>
+    <input type="text" id="nome" placeholder="Digite seu Nome">
+    <button id="btn" onclick="saudar()">Enviar</button>
+
+    <script type="text/typescript">
+        function saudar() {
+            const saudacaoElement = document.getElementById('nome');
+            if (saudacaoElement && saudacaoElement instanceof HTMLInputElement) {
+                const nome = saudacaoElement.value.trim();
+                if (nome === "") {
+                    alert("Por favor, digite seu nome.");
+                } else {
+                    alert(`Ola ${nome}`);
+                }
+            } else {
+                console.alert("Elemento com id 'nome' não encontrado.");
+            }
+        }
+    </script>
+
+    <script>
+        const tscript = document.querySelector('script[type="text/typescript"]');
+        const jsconde = ts.transpile(tscript.textContent);
+
+        const script = document.createElement('script');
+        script.type = 'text/javascript';
+        script.textContent = jsconde;
+        document.body.appendChild(script);
+    </script>
+</body>
+
+</html>
