@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modal</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            height: 100vh;
+            position: relative;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+        }
+
+        #modal {
+            width: 300px;
+            height: 300px;
+            background-color: #0a91df;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Inicio da Pagina</h1>
+    Lorem, ipsum dolor sit amet consectetur adipisicing elit. Minima ipsa reprehenderit amet labore necessitatibus?
+    Delectus, velit. Ipsa, consectetur vel. Soluta inventore laboriosam voluptates unde repellat? Eligendi a odit
+    perferendis cumque.
+    <button id="button">Clique</button>
+
+    <div id="modal"></div>
+</body>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const button = document.getElementById('button');
+        const modal = document.getElementById('modal');
+
+        button.addEventListener('click', function () {
+            if (modal.style.display === 'block') {
+                modal.style.display = 'none';
+            } else {
+                modal.style.display = 'block';
+            }
+        });
+    });
+</script>
+
+
+</html>

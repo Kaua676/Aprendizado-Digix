@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drag Element com Cor Dinâmica</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        #drag {
+            cursor: pointer;
+            width: 300px;
+            height: 300px;
+            background-color: #0a91df;
+            position: absolute;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="drag"></div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const drag = document.getElementById('drag');
+
+            drag.addEventListener('mousedown', function (e) {
+                let offsetX = e.clientX - drag.getBoundingClientRect().left;
+                let offsetY = e.clientY - drag.getBoundingClientRect().top;
+
+                function mouseMoveHandler(e) {
+                    drag.style.left = (e.clientX - offsetX) + 'px';
+                    drag.style.top = (e.clientY - offsetY) + 'px';
+
+                    const randomColor = '#' + Math.floor(Math.random() * 16777215).toString(16);
+                    drag.style.backgroundColor = randomColor;
+                }
+
+                function mouseUpHandler() {
+                    document.removeEventListener('mousemove', mouseMoveHandler);
+                    document.removeEventListener('mouseup', mouseUpHandler);
+                }
+
+                document.addEventListener('mousemove', mouseMoveHandler);
+                document.addEventListener('mouseup', mouseUpHandler);
+            });
+        });
+    </script>
+</body>
+
+</html>

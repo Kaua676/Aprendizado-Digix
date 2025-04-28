@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seleção de elementos</title>
+</head>
+
+<body>
+    <h1 id="title">Aula</h1>
+    <p class="paragraph">oie</p>
+
+    <ul>
+        <li>Item 1</li>
+        <li>Item 2</li>
+        <li>Item 3</li>
+    </ul>
+</body>
+
+<script>
+    function selectById() {
+        const title = document.getElementById("title")
+        console.log(title)
+    }
+
+    function selectByClass() {
+        const paragraph = document.getElementsByClassName("paragraph")
+        console.log(paragraph)
+    }
+
+    function selectByTag() {
+        const li = document.querySelector("li")
+        console.log(li)
+    }
+
+    selectById()
+    selectByClass()
+    selectByTag()
+</script>
+
+
+</html>

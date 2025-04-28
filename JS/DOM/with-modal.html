@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modal</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            height: 100vh;
+            position: relative;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+        }
+
+        #modal {
+            width: 300px;
+            height: 300px;
+            background-color: #0a91df;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            display: none;
+        }
+
+        #close {
+            cursor: pointer;
+            font-size: 24px;
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Inicio da Pagina</h1>
+    Lorem, ipsum dolor sit amet consectetur adipisicing elit. Minima ipsa reprehenderit amet labore necessitatibus?
+    Delectus, velit. Ipsa, consectetur vel. Soluta inventore laboriosam voluptates unde repellat? Eligendi a odit
+    perferendis cumque.
+    <button id="btn">Clique</button>
+
+    <div id="modal">
+        <h2>Modal</h2>
+        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Hic ut illo suscipit minima quia repellendus mollitia minus, ad perferendis eaque temporibus dolorum veniam eius illum consequatur at fugiat iste porro!</p>
+        <span id="close">&times;</span>
+    </div>
+</body>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const open_modal = document.getElementById('btn');
+        const modal = document.getElementById('modal');
+        const close_modal = document.getElementById('close');
+
+        open_modal.addEventListener('click', function () {
+            modal.style.display = 'block';
+        });
+
+        close_modal.addEventListener('click', function () {
+            modal.style.display = 'none';
+        });
+    });
+</script>
+
+
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drag com lista</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+
+<body>
+    <ul>
+        <li>Item 1</li>
+        <li>Item 2</li>
+        <li>Item 10</li>
+    </ul>
+
+    <button id="add">Adicionar</button>
+    <button id="remove">Remover</button>
+</body>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const addButton = document.getElementById('add');
+        const removeButton = document.getElementById('remove');
+        const list = document.querySelector('ul');
+
+        addButton.addEventListener('click', function () {
+            const newItem = document.createElement('li');
+            newItem.textContent = 'Item ' + (list.children.length + 1);
+            list.appendChild(newItem);
+        });
+
+        removeButton.addEventListener('click', function () {
+            const lastItem = list.lastElementChild;
+            list.removeChild(lastItem);
+        });
+    });
+</script>
+</html>

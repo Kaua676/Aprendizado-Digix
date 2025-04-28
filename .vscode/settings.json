@@ -1,3 +1,4 @@
 {
-    "dotnet.defaultSolution": "Endpoint ASPNET.sln"
+    "dotnet.defaultSolution": "Endpoint ASPNET.sln",
+    "FSharp.suggestGitignore": false
 }
