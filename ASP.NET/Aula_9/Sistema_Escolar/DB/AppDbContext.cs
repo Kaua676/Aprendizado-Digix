@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Sistema_Escolar.Models;
+// comando para Haskey
+
 
 namespace Sistema_Escolar.DB
 {
@@ -20,7 +22,7 @@ namespace Sistema_Escolar.DB
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<DisciplinaAlunoCurso>().Haskey(dc => new
+            modelBuilder.Entity<DisciplinaAlunoCurso>().HasKey(dc => new
             {
                 dc.AlunoId,
                 dc.DisciplinaId,
@@ -28,3 +30,4 @@ namespace Sistema_Escolar.DB
             });
         }
     }
+}

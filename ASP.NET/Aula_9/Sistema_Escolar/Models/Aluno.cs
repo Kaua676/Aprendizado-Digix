@@ -7,7 +7,7 @@ namespace Sistema_Escolar.Models
 {
     public class Aluno
     {
-        public Id { get; set; }
+        public int Id { get; set; }
         public string Nome { get; set; }
         public int CursoId { get; set; }
         public Curso Curso { get; set; }
