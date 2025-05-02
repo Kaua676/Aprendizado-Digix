@@ -11,23 +11,18 @@ namespace Sistema_Escolar.DB
 {
     public class AppDbContext : DbContext
     {
-        public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
-        {
-        }
-
         public DbSet<Aluno> Alunos { get; set; }
         public DbSet<Curso> Cursos { get; set; }
         public DbSet<Disciplina> Disciplinas { get; set; }
         public DbSet<DisciplinaAlunoCurso> DisciplinaAlunoCursos { get; set; }
 
+        public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<DisciplinaAlunoCurso>().HasKey(dc => new
-            {
-                dc.AlunoId,
-                dc.DisciplinaId,
-                dc.CursoId
-            });
+            modelBuilder.Entity<DisciplinaAlunoCurso>()
+                .HasKey(x => new { x.AlunoId, x.CursoId, x.DisciplinaId });
+
         }
     }
 }

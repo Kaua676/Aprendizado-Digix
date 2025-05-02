@@ -5,9 +5,10 @@ using System.Threading.Tasks;
 
 namespace Sistema_Escolar.DTO
 {
-    public class CursoDTO
+    public class LoginDTO
     {
-        public int Id {get; set;}
-        public string Descricao {get; set;}
+        public string Nome { get; set; } = string.Empty;
+
+        public string Senha { get; set; } = string.Empty;
     }
 }

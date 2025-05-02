@@ -24,11 +24,19 @@ namespace Sistema_Escolar.Controllers
         public async Task<ActionResult<IEnumerable<DisciplinaAlunoCursoDTO>>> Get()
         {
             var registro = await _context.DisciplinaAlunoCursos
+                .Include(d => d.Aluno)
+                .Include(d => d.Curso)
+                .Include(d => d.Disciplina)
+
                 .Select(d => new DisciplinaAlunoCursoDTO
                 {
+                    Id = d.AlunoId + d.CursoId + d.DisciplinaId,
                     AlunoId = d.AlunoId,
+                    AlunoNome = d.Aluno.Nome,
                     CursoId = d.CursoId,
-                    DisciplinaId = d.DisciplinaId
+                    CursoDescricao = d.Curso.Descricao,
+                    DisciplinaId = d.DisciplinaId,
+                    DisciplinaDescricao = d.Disciplina.Descricao
                 })
                 .ToListAsync();
 
@@ -88,6 +96,34 @@ namespace Sistema_Escolar.Controllers
             await _context.SaveChangesAsync();
 
             return NoContent();
+        }
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<DisciplinaAlunoCursoDTO>> GetById(int id)
+        {
+            var entidade = await _context.DisciplinaAlunoCursos
+                .Include(d => d.Aluno)
+                .Include(d => d.Curso)
+                .Include(d => d.Disciplina)
+                .FirstOrDefaultAsync(r => r.AlunoId + r.CursoId + r.DisciplinaId == id);
+
+            if (entidade == null)
+            {
+                return NotFound("Relação não encontrada");
+            }
+
+            var dto = new DisciplinaAlunoCursoDTO
+            {
+                Id = entidade.AlunoId + entidade.CursoId + entidade.DisciplinaId,
+                AlunoId = entidade.AlunoId,
+                AlunoNome = entidade.Aluno.Nome,
+                CursoId = entidade.CursoId,
+                CursoDescricao = entidade.Curso.Descricao,
+                DisciplinaId = entidade.DisciplinaId,
+                DisciplinaDescricao = entidade.Disciplina.Descricao
+            };
+
+            return Ok();
         }
     }
 }

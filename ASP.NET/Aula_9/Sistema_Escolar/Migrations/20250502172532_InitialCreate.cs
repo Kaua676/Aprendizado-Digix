@@ -75,7 +75,7 @@ namespace Sistema_Escolar.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_DisciplinaAlunoCursos", x => new { x.AlunoId, x.DisciplinaId, x.CursoId });
+                    table.PrimaryKey("PK_DisciplinaAlunoCursos", x => new { x.AlunoId, x.CursoId, x.DisciplinaId });
                     table.ForeignKey(
                         name: "FK_DisciplinaAlunoCursos_Alunos_AlunoId",
                         column: x => x.AlunoId,

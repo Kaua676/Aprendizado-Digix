@@ -23,14 +23,15 @@ namespace Sistema_Escolar.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<CursoDTO>>> Get()
         {
-            var cursos = await _context.Cursos
+            var curso = await _context.Cursos
                 .Select(c => new CursoDTO
                 {
+                    Id = c.Id,
                     Descricao = c.Descricao
                 })
                 .ToListAsync();
 
-            return Ok(cursos);
+            return Ok(curso);
         }
 
         [HttpPost]
@@ -73,6 +74,23 @@ namespace Sistema_Escolar.Controllers
             await _context.SaveChangesAsync();
 
             return NoContent();
+        }
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<CursoDTO>> Get(int id)
+        {
+            var curso = await _context.Cursos.FindAsync(id);
+            if (curso == null)
+            {
+                return NotFound("Curso não encontrado!");
+            }
+            var cursoDTO = new CursoDTO
+            {
+                Id = curso.Id,
+                Descricao = curso.Descricao
+            };
+
+            return Ok(cursoDTO);
         }
     }
 }

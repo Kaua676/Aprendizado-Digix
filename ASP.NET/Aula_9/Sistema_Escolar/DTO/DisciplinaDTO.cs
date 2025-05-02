@@ -7,6 +7,7 @@ namespace Sistema_Escolar.DTO
 {
     public class DisciplinaDTO
     {
+        public int Id { get; set; }
         public string Descricao { get; set; }
         public string Curso { get; set; }
     }

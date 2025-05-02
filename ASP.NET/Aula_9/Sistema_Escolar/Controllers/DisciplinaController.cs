@@ -27,6 +27,7 @@ namespace Sistema_Escolar.Controllers
                 .Include(d => d.Curso)
                 .Select(d => new DisciplinaDTO
                 {
+                    Id = d.Id,
                     Descricao = d.Descricao,
                     Curso = d.Curso.Descricao
                 })
@@ -81,6 +82,28 @@ namespace Sistema_Escolar.Controllers
             await _context.SaveChangesAsync();
 
             return NoContent();
+        }
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<DisciplinaDTO>> GetById(int id)
+        {
+            var disciplina = await _context.Disciplinas
+            .Where(d => d.Id == id)
+            .Select(d => new DisciplinaDTO
+            {
+                Id = d.Id,
+                Descricao = d.Descricao,
+                Curso = d.Curso.Descricao
+            })
+            .FirstOrDefaultAsync();
+
+            if (disciplina == null)
+            {
+                return NotFound("Disciplina não encontrada!");
+            }
+            ;
+
+            return Ok(disciplina);
         }
     }
 }

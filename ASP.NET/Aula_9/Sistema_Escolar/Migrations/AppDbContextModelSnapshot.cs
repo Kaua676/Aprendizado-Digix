@@ -87,16 +87,16 @@ namespace Sistema_Escolar.Migrations
                     b.Property<int>("AlunoId")
                         .HasColumnType("integer");
 
-                    b.Property<int>("DisciplinaId")
+                    b.Property<int>("CursoId")
                         .HasColumnType("integer");
 
-                    b.Property<int>("CursoId")
+                    b.Property<int>("DisciplinaId")
                         .HasColumnType("integer");
 
                     b.Property<int>("Id")
                         .HasColumnType("integer");
 
-                    b.HasKey("AlunoId", "DisciplinaId", "CursoId");
+                    b.HasKey("AlunoId", "CursoId", "DisciplinaId");
 
                     b.HasIndex("CursoId");
 

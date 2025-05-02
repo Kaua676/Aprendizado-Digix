@@ -11,7 +11,7 @@ using Sistema_Escolar.DB;
 namespace Sistema_Escolar.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250430202846_InitialCreate")]
+    [Migration("20250502172532_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -90,16 +90,16 @@ namespace Sistema_Escolar.Migrations
                     b.Property<int>("AlunoId")
                         .HasColumnType("integer");
 
-                    b.Property<int>("DisciplinaId")
+                    b.Property<int>("CursoId")
                         .HasColumnType("integer");
 
-                    b.Property<int>("CursoId")
+                    b.Property<int>("DisciplinaId")
                         .HasColumnType("integer");
 
                     b.Property<int>("Id")
                         .HasColumnType("integer");
 
-                    b.HasKey("AlunoId", "DisciplinaId", "CursoId");
+                    b.HasKey("AlunoId", "CursoId", "DisciplinaId");
 
                     b.HasIndex("CursoId");
 
