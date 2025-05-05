@@ -7,7 +7,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.IdentityModel.Tokens;
 using System.Security.Claims;
 using System.Text;
-using System.Security.Cryptography.X509Certificates;
+using Microsoft.IdentityModel.Tokens;
 
 namespace Sistema_Escolar.Services
 {
@@ -23,8 +23,15 @@ namespace Sistema_Escolar.Services
                 Subject = new ClaimsIdentity(new Claim[]
                 {
                     new Claim(ClaimTypes.Name, usuario.Nome)
-                })
+                }),
+
+                Expires = DateTime.UtcNow.AddHours(2),
+                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key),
+                SecurityAlgorithms.HmacSha256Signature)
+
             };
+            var token = tokenHandler.CreateToken(tokenDescriptor);
+            return tokenHandler.WriteToken(token);
         }
     }
 }
