@@ -5,13 +5,14 @@
 }
 
 .hero-section {
-    background-color: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
-        url('https://source.unsplash.com/random/1200x600/?school,university');
+    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+        url('https://th.bing.com/th/id/OIP.MNlRBpo-SjTWpiAiv3ZPgwHaE8?cb=iwc1&rs=1&pid=ImgDetMain');
     background-size: cover;
     background-position: center;
     padding: 100px 0;
     margin-bottom: 50px;
     text-align: center;
+    color: #fff;
 }
 
 .navbar {

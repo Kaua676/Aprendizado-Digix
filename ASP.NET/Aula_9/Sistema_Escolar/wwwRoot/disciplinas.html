@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gestão de Disciplinas | Escola KaDom</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+    <link rel="stylesheet" href="./css/styles-global.css" />
+
+    <style>
+        body,
+        html {
+            height: 100%;
+        }
+
+        main.container {
+            min-height: 60vh;
+            padding-top: 40px;
+            padding-bottom: 40px;
+        }
+
+        footer {
+            background-color: #212529;
+            color: white;
+            padding: 30px 0;
+        }
+
+        footer a {
+            display: block;
+            color: white;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body class="bg-light d-flex flex-column">
+
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow-sm">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <i class="fas fa-graduation-cap me-2"></i> Escola KaDom
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto me-3">
+                    <li class="nav-item">
+                        <a class="nav-link" href="alunos.html"><i class="fas fa-user me-1"></i> Aluno</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="cursos.html"><i class="fas fa-book me-1"></i> Curso</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#"><i class="fas fa-chalkboard-teacher me-1"></i>
+                            Disciplina</a>
+                    </li>
+                </ul>
+                <button class="btn btn-outline-light bg-danger text-white" onclick="logout()">
+                    <i class="fas fa-sign-out-alt me-1"></i> Logout
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- CONTEÚDO -->
+    <main class="container flex-grow-1">
+        <h2 class="mb-4">Gestão de Disciplinas</h2>
+
+        <form id="disciplinaForm" class="card card-body shadow-sm mb-4">
+            <input type="hidden" id="disciplinaId" />
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <label for="descricao" class="form-label">Descrição da Disciplina</label>
+                    <input type="text" class="form-control" id="descricao" required />
+                </div>
+                <div class="col-md-6">
+                    <label for="curso" class="form-label">Curso</label>
+                    <input type="text" class="form-control" id="curso" required />
+                </div>
+            </div>
+            <div class="mt-3 d-flex gap-2">
+                <button type="submit" class="btn btn-primary">Salvar</button>
+                <button type="button" class="btn btn-secondary" onclick="cancelarEdicao()">Cancelar</button>
+            </div>
+        </form>
+
+        <div class="table-responsive shadow-sm">
+            <table class="table table-bordered table-striped align-middle">
+                <thead class="table-dark">
+                    <tr>
+                        <th>ID</th>
+                        <th>Descrição</th>
+                        <th>Curso</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody id="disciplinaTableBody"></tbody>
+            </table>
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="mt-auto">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <h5>Sistema KaDom</h5>
+                    <p>O sistema de gestão educacional mais completo do mercado.</p>
+                </div>
+                <div class="col-md-3 mb-3">
+                    <h5>Links Rápidos</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="login.html">Login</a></li>
+                        <li><a href="alunos.html">Alunos</a></li>
+                        <li><a href="cursos.html">Cursos</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3 mb-3">
+                    <h5>Contato</h5>
+                    <ul class="list-unstyled">
+                        <li><i class="fas fa-envelope me-2"></i>contato@escola.com</li>
+                        <li><i class="fas fa-phone me-2"></i>(xx) xxxx-xxxx</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="text-center border-top pt-3 mt-3">
+                <p class="mb-0">&copy; 2025 Escola KaDom. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- SCRIPTS -->
+    <script>
+        const API_URL = 'http://localhost:5271/api/disciplina';
+
+        document.addEventListener('DOMContentLoaded', carregarDisciplinas);
+        document.getElementById('disciplinaForm').addEventListener('submit', salvarDisciplina);
+
+        async function carregarDisciplinas() {
+            const res = await fetch(API_URL);
+            const disciplinas = await res.json();
+            const tbody = document.getElementById('disciplinaTableBody');
+            tbody.innerHTML = '';
+            disciplinas.forEach(d => {
+                tbody.innerHTML += `
+          <tr>
+            <td>${d.id}</td>
+            <td>${d.descricao}</td>
+            <td>${d.curso}</td>
+            <td>
+              <button class="btn btn-sm btn-warning me-1" onclick="editarDisciplina(${d.id})">Editar</button>
+              <button class="btn btn-sm btn-danger" onclick="deletarDisciplina(${d.id})">Excluir</button>
+            </td>
+          </tr>`;
+            });
+        }
+
+        async function salvarDisciplina(e) {
+            e.preventDefault();
+            const id = document.getElementById('disciplinaId').value;
+            const descricao = document.getElementById('descricao').value;
+            const curso = document.getElementById('curso').value;
+            const disciplina = { descricao, curso };
+
+            if (id) {
+                await fetch(`${API_URL}/${id}`, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(disciplina)
+                });
+            } else {
+                await fetch(API_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(disciplina)
+                });
+            }
+
+            document.getElementById('disciplinaForm').reset();
+            carregarDisciplinas();
+        }
+
+        async function editarDisciplina(id) {
+            const res = await fetch(`${API_URL}/${id}`);
+            const d = await res.json();
+            document.getElementById('disciplinaId').value = d.id;
+            document.getElementById('descricao').value = d.descricao;
+            document.getElementById('curso').value = d.curso;
+        }
+
+        async function deletarDisciplina(id) {
+            if (confirm('Tem certeza que deseja excluir esta disciplina?')) {
+                await fetch(`${API_URL}/${id}`, { method: 'DELETE' });
+                carregarDisciplinas();
+            }
+        }
+
+        function cancelarEdicao() {
+            document.getElementById('disciplinaForm').reset();
+        }
+
+        function logout() {
+            alert('Logout realizado com sucesso!');
+            window.location.href = 'index.html';
+        }
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

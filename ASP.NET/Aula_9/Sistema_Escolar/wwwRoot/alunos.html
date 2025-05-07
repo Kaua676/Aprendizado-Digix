@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sistema Educacional</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+    <link rel="stylesheet" href="./css/styles-global.css" />
+
+    <style>
+        body,
+        html {
+            height: 100%;
+        }
+
+        main.container {
+            min-height: 60vh;
+            padding-top: 40px;
+            padding-bottom: 40px;
+        }
+
+        footer {
+            background-color: #212529;
+            color: white;
+            padding: 30px 0;
+        }
+
+        footer a {
+            display: block;
+            color: white;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body class="bg-light d-flex flex-column">
+
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow-sm">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <i class="fas fa-graduation-cap me-2"></i> Escola KaDom
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto me-3">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#"><i class="fas fa-user me-1"></i> Aluno</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="cursos.html"><i class="fas fa-book me-1"></i> Curso</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="disciplinas.html"><i class="fas fa-chalkboard-teacher me-1"></i>
+                            Disciplina</a>
+                    </li>
+                </ul>
+
+                <!-- Botão Logout -->
+                <button class="btn btn-outline-light bg-danger text-white" onclick="logout()">
+                    <i class="fas fa-sign-out-alt me-1"></i> Logout
+                </button>
+            </div>
+        </div>
+    </nav>
+
+
+    <!-- CONTEÚDO PRINCIPAL -->
+    <main class="container flex-grow-1">
+        <h2 class="mb-4">Gestão de Alunos</h2>
+
+        <form id="alunoForm" class="card card-body shadow-sm mb-4">
+            <input type="hidden" id="alunoId">
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <label for="nome" class="form-label">Nome do Aluno</label>
+                    <input type="text" class="form-control" id="nome" required>
+                </div>
+                <div class="col-md-6">
+                    <label for="curso" class="form-label">Curso</label>
+                    <input type="text" class="form-control" id="curso" required>
+                </div>
+            </div>
+            <div class="mt-3 d-flex gap-2">
+                <button type="submit" class="btn btn-primary">Salvar</button>
+                <button type="button" class="btn btn-secondary" onclick="cancelarEdicao()">Cancelar</button>
+            </div>
+        </form>
+
+        <div class="table-responsive shadow-sm">
+            <table class="table table-bordered table-striped align-middle">
+                <thead class="table-dark">
+                    <tr>
+                        <th>ID</th>
+                        <th>Nome</th>
+                        <th>Curso</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody id="alunoTableBody"></tbody>
+            </table>
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="mt-auto">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <h5>Sistema KaDom</h5>
+                    <p>O sistema de gestão educacional mais completo do mercado.</p>
+                </div>
+                <div class="col-md-3 mb-3">
+                    <h5>Links Rápidos</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="login.html">Login</a></li>
+                        <li><a href="alunos.html">Alunos</a></li>
+                        <li><a href="cursos.html">Cursos</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3 mb-3">
+                    <h5>Contato</h5>
+                    <ul class="list-unstyled">
+                        <li><i class="fas fa-envelope me-2"></i>contato@escola.com</li>
+                        <li><i class="fas fa-phone me-2"></i>(xx) xxxx-xxxx</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="text-center border-top pt-3 mt-3">
+                <p class="mb-0">&copy; 2025 Escola KaDom. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function logout() {
+            // Redireciona ou limpa storage (ajuste conforme sua lógica)
+            alert('Logout realizado com sucesso!');
+            window.location.href = 'index.html';
+        }
+
+    </script>
+
+    <script>
+        const API_URL = 'http://localhost:5271/api/aluno';
+
+        document.addEventListener('DOMContentLoaded', carregarAlunos);
+        document.getElementById('alunoForm').addEventListener('submit', salvarAluno);
+
+        async function carregarAlunos() {
+            const res = await fetch(API_URL);
+            const alunos = await res.json();
+            const tbody = document.getElementById('alunoTableBody');
+            tbody.innerHTML = '';
+            alunos.forEach(aluno => {
+                tbody.innerHTML += `
+        <tr>
+          <td>${aluno.id}</td>
+          <td>${aluno.nome}</td>
+          <td>${aluno.curso}</td>
+          <td>
+            <button class="btn btn-sm btn-warning me-1" onclick="editarAluno(${aluno.id})">Editar</button>
+            <button class="btn btn-sm btn-danger" onclick="deletarAluno(${aluno.id})">Excluir</button>
+          </td>
+        </tr>`;
+            });
+        }
+
+        async function salvarAluno(e) {
+            e.preventDefault();
+            const id = document.getElementById('alunoId').value;
+            const nome = document.getElementById('nome').value;
+            const curso = document.getElementById('curso').value;
+            const aluno = { nome, curso };
+
+            if (id) {
+                await fetch(`${API_URL}/${id}`, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(aluno)
+                });
+            } else {
+                await fetch(API_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(aluno)
+                });
+            }
+
+            document.getElementById('alunoForm').reset();
+            carregarAlunos();
+        }
+
+        async function editarAluno(id) {
+            const res = await fetch(`${API_URL}/${id}`);
+            const aluno = await res.json();
+            document.getElementById('alunoId').value = aluno.id;
+            document.getElementById('nome').value = aluno.nome;
+            document.getElementById('curso').value = aluno.curso;
+        }
+
+        async function deletarAluno(id) {
+            if (confirm('Tem certeza que deseja excluir este aluno?')) {
+                await fetch(`${API_URL}/${id}`, { method: 'DELETE' });
+                carregarAlunos();
+            }
+        }
+
+        function cancelarEdicao() {
+            document.getElementById('alunoForm').reset();
+        }
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
