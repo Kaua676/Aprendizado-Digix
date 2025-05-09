@@ -64,6 +64,10 @@
                         <a class="nav-link" href="disciplinas.html"><i class="fas fa-chalkboard-teacher me-1"></i>
                             Disciplina</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="disciplina-aluno-curso.html"><i class="fas fa-link me-1"></i>
+                            Matrículas</a>
+                    </li>
                 </ul>
 
                 <!-- Botão Logout -->
@@ -76,29 +80,30 @@
 
 
     <!-- CONTEÚDO PRINCIPAL -->
-    <main class="container flex-grow-1">
-        <h2 class="mb-4">Gestão de Alunos</h2>
-
+    <main class="container flex-grow-1 py-4">
+        <h2>Gestão de Alunos</h2>
         <form id="alunoForm" class="card card-body shadow-sm mb-4">
-            <input type="hidden" id="alunoId">
+            <input type="hidden" id="alunoId" />
             <div class="row g-3">
                 <div class="col-md-6">
-                    <label for="nome" class="form-label">Nome do Aluno</label>
-                    <input type="text" class="form-control" id="nome" required>
+                    <label class="form-label" for="nome">Nome</label>
+                    <input class="form-control" id="nome" required />
                 </div>
                 <div class="col-md-6">
-                    <label for="curso" class="form-label">Curso</label>
-                    <input type="text" class="form-control" id="curso" required>
+                    <label class="form-label" for="cursoSelect">Curso</label>
+                    <select class="form-select" id="cursoSelect" required>
+                        <option>Carregando…</option>
+                    </select>
                 </div>
             </div>
-            <div class="mt-3 d-flex gap-2">
-                <button type="submit" class="btn btn-primary">Salvar</button>
-                <button type="button" class="btn btn-secondary" onclick="cancelarEdicao()">Cancelar</button>
+            <div class="mt-3">
+                <button class="btn btn-primary" type="submit">Salvar</button>
+                <button class="btn btn-secondary" type="button" onclick="cancelarEdicao()">Cancelar</button>
             </div>
         </form>
 
-        <div class="table-responsive shadow-sm">
-            <table class="table table-bordered table-striped align-middle">
+        <div class="table-responsive">
+            <table class="table table-striped">
                 <thead class="table-dark">
                     <tr>
                         <th>ID</th>
@@ -152,68 +157,82 @@
     </script>
 
     <script>
-        const API_URL = 'http://localhost:5271/api/aluno';
+        const API = 'http://localhost:5271/api';
+        const R_ALUNO = `${API}/Aluno`;
+        const R_CURSO = `${API}/Curso`;
 
-        document.addEventListener('DOMContentLoaded', carregarAlunos);
-        document.getElementById('alunoForm').addEventListener('submit', salvarAluno);
+        document.addEventListener('DOMContentLoaded', () => {
+            carregarCursos();
+            carregarAlunos();
+            document.getElementById('alunoForm').addEventListener('submit', salvarAluno);
+        });
 
-        async function carregarAlunos() {
-            const res = await fetch(API_URL);
-            const alunos = await res.json();
-            const tbody = document.getElementById('alunoTableBody');
-            tbody.innerHTML = '';
-            alunos.forEach(aluno => {
-                tbody.innerHTML += `
-        <tr>
-          <td>${aluno.id}</td>
-          <td>${aluno.nome}</td>
-          <td>${aluno.curso}</td>
-          <td>
-            <button class="btn btn-sm btn-warning me-1" onclick="editarAluno(${aluno.id})">Editar</button>
-            <button class="btn btn-sm btn-danger" onclick="deletarAluno(${aluno.id})">Excluir</button>
-          </td>
-        </tr>`;
-            });
+        async function carregarCursos() {
+            const sel = document.getElementById('cursoSelect');
+            sel.innerHTML = '<option>…</option>';
+            try {
+                const r = await fetch(R_CURSO);
+                const list = await r.json();
+                sel.innerHTML = '<option value="">Selecione</option>';
+                list.forEach(c => sel.innerHTML += `<option value="${c.id}">${c.descricao}</option>`);
+            } catch {
+                sel.innerHTML = '<option>Erro</option>';
+            }
         }
 
-        async function salvarAluno(e) {
-            e.preventDefault();
-            const id = document.getElementById('alunoId').value;
-            const nome = document.getElementById('nome').value;
-            const curso = document.getElementById('curso').value;
-            const aluno = { nome, curso };
-
-            if (id) {
-                await fetch(`${API_URL}/${id}`, {
-                    method: 'PUT',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(aluno)
+        async function carregarAlunos() {
+            const tb = document.getElementById('alunoTableBody');
+            tb.innerHTML = '';
+            try {
+                const r = await fetch(R_ALUNO);
+                const list = await r.json();
+                list.forEach(a => {
+                    tb.innerHTML += `
+            <tr>
+              <td>${a.id}</td>
+              <td>${a.nome}</td>
+              <td>${a.curso}</td>
+              <td>
+                <button class="btn btn-warning btn-sm" onclick="editarAluno(${a.id})">✎</button>
+                <button class="btn btn-danger btn-sm" onclick="deletarAluno(${a.id})">🗑️</button>
+              </td>
+            </tr>`;
                 });
-            } else {
-                await fetch(API_URL, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(aluno)
-                });
+            } catch {
+                alert('Erro ao carregar alunos');
             }
+        }
 
+        async function salvarAluno(ev) {
+            ev.preventDefault();
+            const id = document.getElementById('alunoId').value;
+            const dto = {
+                nome: document.getElementById('nome').value,
+                curso: document.getElementById('cursoSelect').selectedOptions[0].text
+            };
+            const opts = {
+                method: id ? 'PUT' : 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(dto)
+            };
+            const url = id ? `${R_ALUNO}/${id}` : R_ALUNO;
+            await fetch(url, opts);
             document.getElementById('alunoForm').reset();
             carregarAlunos();
         }
 
         async function editarAluno(id) {
-            const res = await fetch(`${API_URL}/${id}`);
-            const aluno = await res.json();
-            document.getElementById('alunoId').value = aluno.id;
-            document.getElementById('nome').value = aluno.nome;
-            document.getElementById('curso').value = aluno.curso;
+            const r = await fetch(`${R_ALUNO}/${id}`);
+            const a = await r.json();
+            document.getElementById('alunoId').value = a.id;
+            document.getElementById('nome').value = a.nome;
+            document.getElementById('cursoSelect').value = a.idCurso; // ou match text
         }
 
         async function deletarAluno(id) {
-            if (confirm('Tem certeza que deseja excluir este aluno?')) {
-                await fetch(`${API_URL}/${id}`, { method: 'DELETE' });
-                carregarAlunos();
-            }
+            if (!confirm('Excluir?')) return;
+            await fetch(`${R_ALUNO}/${id}`, { method: 'DELETE' });
+            carregarAlunos();
         }
 
         function cancelarEdicao() {

@@ -1,109 +1,75 @@
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
+// Controllers/AlunoController.cs
 using Microsoft.AspNetCore.Mvc;
-using Sistema_Escolar.Models;
-using Sistema_Escolar.DTO;
+using Microsoft.EntityFrameworkCore;
 using Sistema_Escolar.DB;
+using Sistema_Escolar.DTO;
+using Sistema_Escolar.Models;
 
-namespace Sistema_Escolar.Controllers
+[ApiController]
+[Route("api/[controller]")]
+public class AlunoController : ControllerBase
 {
-    [ApiController]
-    [Route("api/[controller]")]
-    public class AlunoController : ControllerBase
+    private readonly AppDbContext _context;
+    public AlunoController(AppDbContext ctx) => _context = ctx;
+
+    [HttpGet]
+    public async Task<ActionResult<IEnumerable<AlunoDTO>>> Get()
     {
-        private readonly AppDbContext _context;
-
-        public AlunoController(AppDbContext context)
-        {
-            _context = context;
-        }
-
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<AlunoDTO>>> Get()
-        {
-            var alunos = await _context.Alunos
-                .Include(a => a.Curso)
-                .Select(a => new AlunoDTO
-                {
-                    Id = a.Id,
-                    Nome = a.Nome,
-                    Curso = a.Curso.Descricao
-                })
-                .ToListAsync();
-
-            return Ok(alunos);
-        }
-
-        [HttpPost]
-        public async Task<ActionResult> Post([FromBody] AlunoDTO alunoDTO)
-        {
-            var curso = await _context.Cursos.FirstOrDefaultAsync(c => c.Descricao == alunoDTO.Curso);
-            if (curso == null) return BadRequest("Curso não encontrado");
-
-            var aluno = new Aluno
+        var lista = await _context.Alunos
+            .Include(a => a.Curso)
+            .Select(a => new AlunoDTO
             {
-                Nome = alunoDTO.Nome,
-                CursoId = curso.Id
-            };
+                Id = a.Id,
+                Nome = a.Nome,
+                Curso = a.Curso.Descricao
+            })
+            .ToListAsync();
+        return Ok(lista);
+    }
 
-            _context.Alunos.Add(aluno);
-            await _context.SaveChangesAsync();
+    [HttpPost]
+    public async Task<ActionResult<AlunoDTO>> Post([FromBody] AlunoDTO dto)
+    {
+        var curso = await _context.Cursos.FirstOrDefaultAsync(c => c.Descricao == dto.Curso)
+            ?? return BadRequest("Curso não encontrado");
+        var aluno = new Aluno { Nome = dto.Nome, CursoId = curso.Id };
+        _context.Alunos.Add(aluno);
+        await _context.SaveChangesAsync();
 
-            return Ok(new { mensagem = "Aluno cadastrado com sucesso!" });
-        }
+        dto.Id = aluno.Id;
+        return CreatedAtAction(nameof(Get), new { id = aluno.Id }, dto);
+    }
 
-        [HttpPut("{id}")]
-        public async Task<ActionResult> Put(int id, [FromBody] AlunoDTO alunoDTO)
-        {
-            var aluno = await _context.Alunos.FindAsync(id);
-            if (aluno == null)
-                return NotFound("Aluno não encontrado!");
+    [HttpPut("{id}")]
+    public async Task<ActionResult> Put(int id, [FromBody] AlunoDTO dto)
+    {
+        var aluno = await _context.Alunos.FindAsync(id)
+            ?? return NotFound("Aluno não encontrado");
+        var curso = await _context.Cursos.FirstOrDefaultAsync(c => c.Descricao == dto.Curso)
+            ?? return BadRequest("Curso não encontrado");
+        aluno.Nome = dto.Nome;
+        aluno.CursoId = curso.Id;
+        await _context.SaveChangesAsync();
+        return NoContent();
+    }
 
-            var curso = await _context.Cursos.FirstOrDefaultAsync(c => c.Descricao == alunoDTO.Curso);
-            if (curso == null)
-                return BadRequest("Curso não encontrado!");
+    [HttpDelete("{id}")]
+    public async Task<ActionResult> Delete(int id)
+    {
+        var aluno = await _context.Alunos.FindAsync(id)
+            ?? return NotFound("Aluno não encontrado");
+        _context.Alunos.Remove(aluno);
+        await _context.SaveChangesAsync();
+        return NoContent();
+    }
 
-            aluno.Nome = alunoDTO.Nome;
-            aluno.CursoId = curso.Id;
-
-            await _context.SaveChangesAsync();
-
-            return Ok(new { mensagem = "Aluno atualizado com sucesso!" });
-        }
-
-        [HttpDelete("{id}")]
-        public async Task<ActionResult> Delete(int id)
-        {
-            var aluno = await _context.Alunos.FindAsync(id);
-            if (aluno == null)
-                return NotFound("Aluno não encontrado!");
-
-            _context.Alunos.Remove(aluno);
-            await _context.SaveChangesAsync();
-
-            return Ok(new { mensagem = "Aluno removido com sucesso!" });
-        }
-
-        [HttpGet("{id}")]
-        public async Task<ActionResult<AlunoDTO>> Get(int id)
-        {
-            var aluno = await _context.Alunos
-                .Include(a => a.Curso)
-                .FirstOrDefaultAsync(a => a.Id == id);
-            if (aluno == null)
-            {
-                return NotFound("Aluno não encontrado!");
-            }
-            var alunoDTO = new AlunoDTO
-            {
-                Id = aluno.Id,
-                Nome = aluno.Nome,
-                Curso = aluno.Curso.Descricao
-            };
-
-            return Ok(alunoDTO);
-        }
+    [HttpGet("{id}")]
+    public async Task<ActionResult<AlunoDTO>> Get(int id)
+    {
+        var a = await _context.Alunos
+            .Include(x => x.Curso)
+            .FirstOrDefaultAsync(x => x.Id == id)
+            ?? return NotFound("Aluno não encontrado");
+        return Ok(new AlunoDTO { Id = a.Id, Nome = a.Nome, Curso = a.Curso.Descricao });
     }
 }

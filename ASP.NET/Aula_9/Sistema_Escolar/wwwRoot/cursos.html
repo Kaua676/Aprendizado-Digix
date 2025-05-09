@@ -64,6 +64,11 @@
                         <a class="nav-link" href="disciplinas.html"><i class="fas fa-chalkboard-teacher me-1"></i>
                             Disciplina</a>
                     </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="disciplina-aluno-curso.html"><i class="fas fa-link me-1"></i>
+                            Matrículas</a>
+                    </li>
                 </ul>
                 <button class="btn btn-outline-light bg-danger text-white" onclick="logout()">
                     <i class="fas fa-sign-out-alt me-1"></i> Logout
@@ -73,33 +78,27 @@
     </nav>
 
     <!-- CONTEÚDO -->
-    <main class="container flex-grow-1">
-        <h2 class="mb-4">Gestão de Cursos</h2>
-
+    <main class="container flex-grow-1 py-4">
+        <h2>Gestão de Cursos</h2>
         <form id="cursoForm" class="card card-body shadow-sm mb-4">
             <input type="hidden" id="cursoId" />
             <div class="mb-3">
-                <label for="descricao" class="form-label">Descrição do Curso</label>
-                <input type="text" class="form-control" id="descricao" required />
+                <label class="form-label" for="descricao">Descrição</label>
+                <input class="form-control" id="descricao" required />
             </div>
-            <div class="d-flex gap-2">
-                <button type="submit" class="btn btn-primary">Salvar</button>
-                <button type="button" class="btn btn-secondary" onclick="cancelarEdicao()">Cancelar</button>
-            </div>
+            <button class="btn btn-primary" type="submit">Salvar</button>
+            <button class="btn btn-secondary" type="button" onclick="cancelarEdicao()">Cancelar</button>
         </form>
-
-        <div class="table-responsive shadow-sm">
-            <table class="table table-bordered table-striped align-middle">
-                <thead class="table-dark">
-                    <tr>
-                        <th>ID</th>
-                        <th>Descrição</th>
-                        <th>Ações</th>
-                    </tr>
-                </thead>
-                <tbody id="cursoTableBody"></tbody>
-            </table>
-        </div>
+        <table class="table table-striped">
+            <thead class="table-dark">
+                <tr>
+                    <th>ID</th>
+                    <th>Descrição</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody id="cursoTableBody"></tbody>
+        </table>
     </main>
 
     <!-- FOOTER -->
@@ -134,75 +133,49 @@
 
     <!-- SCRIPTS -->
     <script>
-        const API_URL = 'http://localhost:5271/api/curso';
+        const API = 'http://localhost:5271/api';
+        const R = `${API}/Curso`;
 
-        document.addEventListener('DOMContentLoaded', carregarCursos);
-        document.getElementById('cursoForm').addEventListener('submit', salvarCurso);
+        document.addEventListener('DOMContentLoaded', () => {
+            carregar();
+            document.getElementById('cursoForm').addEventListener('submit', salvar);
+        });
 
-        async function carregarCursos() {
-            const res = await fetch(API_URL);
-            const cursos = await res.json();
-            const tbody = document.getElementById('cursoTableBody');
-            tbody.innerHTML = '';
-            cursos.forEach(curso => {
-                tbody.innerHTML += `
-          <tr>
-            <td>${curso.id}</td>
-            <td>${curso.descricao}</td>
-            <td>
-              <button class="btn btn-sm btn-warning me-1" onclick="editarCurso(${curso.id})">Editar</button>
-              <button class="btn btn-sm btn-danger" onclick="deletarCurso(${curso.id})">Excluir</button>
-            </td>
-          </tr>`;
-            });
+        async function carregar() {
+            const tb = document.getElementById('cursoTableBody');
+            tb.innerHTML = '';
+            (await fetch(R).then(r => r.json()))
+                .forEach(c => tb.innerHTML += `
+              <tr>
+                <td>${c.id}</td><td>${c.descricao}</td>
+                <td>
+                  <button class="btn btn-warning btn-sm" onclick="editar(${c.id})">✎</button>
+                  <button class="btn btn-danger btn-sm" onclick="deletar(${c.id})">🗑️</button>
+                </td>
+              </tr>`);
         }
 
-        async function salvarCurso(e) {
+        async function salvar(e) {
             e.preventDefault();
             const id = document.getElementById('cursoId').value;
-            const descricao = document.getElementById('descricao').value;
-            const curso = { descricao };
-
-            if (id) {
-                await fetch(`${API_URL}/${id}`, {
-                    method: 'PUT',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(curso)
-                });
-            } else {
-                await fetch(API_URL, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(curso)
-                });
-            }
-
+            const dto = { descricao: document.getElementById('descricao').value };
+            const opts = {
+                method: id ? 'PUT' : 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(dto)
+            };
+            await fetch(id ? `${R}/${id}` : R, opts);
             document.getElementById('cursoForm').reset();
-            carregarCursos();
+            carregar();
         }
 
-        async function editarCurso(id) {
-            const res = await fetch(`${API_URL}/${id}`);
-            const curso = await res.json();
-            document.getElementById('cursoId').value = curso.id;
-            document.getElementById('descricao').value = curso.descricao;
+        async function editar(id) {
+            const c = await fetch(`${R}/${id}`).then(r => r.json());
+            document.getElementById('cursoId').value = c.id;
+            document.getElementById('descricao').value = c.descricao;
         }
-
-        async function deletarCurso(id) {
-            if (confirm('Tem certeza que deseja excluir este curso?')) {
-                await fetch(`${API_URL}/${id}`, { method: 'DELETE' });
-                carregarCursos();
-            }
-        }
-
-        function cancelarEdicao() {
-            document.getElementById('cursoForm').reset();
-        }
-
-        function logout() {
-            alert('Logout realizado com sucesso!');
-            window.location.href = 'index.html';
-        }
+        async function deletar(id) { if (!confirm('Excluir?')) return; await fetch(`${R}/${id}`, { method: 'DELETE' }); carregar(); }
+        function cancelarEdicao() { document.getElementById('cursoForm').reset(); }
     </script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>

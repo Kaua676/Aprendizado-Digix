@@ -1,129 +1,118 @@
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
+// Controllers/DisciplinaAlunoCursoController.cs
 using Microsoft.AspNetCore.Mvc;
-using Sistema_Escolar.Models;
+using Microsoft.EntityFrameworkCore;
 using Sistema_Escolar.DB;
 using Sistema_Escolar.DTO;
+using Sistema_Escolar.Models;
 
-namespace Sistema_Escolar.Controllers
+[ApiController]
+[Route("api/[controller]")]
+public class DisciplinaAlunoCursoController : ControllerBase
 {
-    [ApiController]
-    [Route("api/[controller]")]
-    public class DisciplinaAlunoCursoController : ControllerBase
+    private readonly AppDbContext _context;
+    public DisciplinaAlunoCursoController(AppDbContext ctx) => _context = ctx;
+
+    [HttpGet]
+    public async Task<ActionResult<IEnumerable<DisciplinaAlunoCursoDTO>>> Get()
     {
-        private readonly AppDbContext _context;
-
-        public DisciplinaAlunoCursoController(AppDbContext context)
-        {
-            _context = context;
-        }
-
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<DisciplinaAlunoCursoDTO>>> Get()
-        {
-            var registro = await _context.DisciplinaAlunoCursos
-                .Include(d => d.Aluno)
-                .Include(d => d.Curso)
-                .Include(d => d.Disciplina)
-
-                .Select(d => new DisciplinaAlunoCursoDTO
-                {
-                    Id = d.AlunoId + d.CursoId + d.DisciplinaId,
-                    AlunoId = d.AlunoId,
-                    AlunoNome = d.Aluno.Nome,
-                    CursoId = d.CursoId,
-                    CursoDescricao = d.Curso.Descricao,
-                    DisciplinaId = d.DisciplinaId,
-                    DisciplinaDescricao = d.Disciplina.Descricao
-                })
-                .ToListAsync();
-
-            return Ok(registro);
-        }
-
-        [HttpPost]
-        public async Task<ActionResult> Post([FromBody] DisciplinaAlunoCursoDTO disciplinaAlunoCursoDTO)
-        {
-            var disciplina = await _context.Disciplinas.FindAsync(disciplinaAlunoCursoDTO.DisciplinaId);
-            if (disciplina == null) return BadRequest("Disciplina não encontrada");
-
-            var aluno = await _context.Alunos.FindAsync(disciplinaAlunoCursoDTO.AlunoId);
-            if (aluno == null) return BadRequest("Aluno não encontrado");
-
-            var curso = await _context.Cursos.FindAsync(disciplinaAlunoCursoDTO.CursoId);
-            if (curso == null) return BadRequest("Curso não encontrado");
-
-            var disciplinaAlunoCurso = new DisciplinaAlunoCurso
+        var lista = await _context.DisciplinaAlunoCursos
+            .Include(d => d.Aluno)
+            .Include(d => d.Curso)
+            .Include(d => d.Disciplina)
+            .Select(d => new DisciplinaAlunoCursoDTO
             {
-                AlunoId = disciplinaAlunoCursoDTO.AlunoId,
-                CursoId = disciplinaAlunoCursoDTO.CursoId,
-                DisciplinaId = disciplinaAlunoCursoDTO.DisciplinaId,
-            };
+                Id = d.AlunoId + d.CursoId + d.DisciplinaId,
+                AlunoId = d.AlunoId,
+                AlunoNome = d.Aluno.Nome,
+                CursoId = d.CursoId,
+                CursoDescricao = d.Curso.Descricao,
+                DisciplinaId = d.DisciplinaId,
+                DisciplinaDescricao = d.Disciplina.Descricao
+            })
+            .ToListAsync();
+        return Ok(lista);
+    }
 
-            _context.DisciplinaAlunoCursos.Add(disciplinaAlunoCurso);
-            await _context.SaveChangesAsync();
+    [HttpPost]
+    public async Task<ActionResult<DisciplinaAlunoCursoDTO>> Post([FromBody] CreateDisciplinaAlunoCursoDTO input)
+    {
+        var a = await _context.Alunos.FindAsync(input.AlunoId)
+            ?? return BadRequest("Aluno não encontrado");
+        var c = await _context.Cursos.FindAsync(input.CursoId)
+            ?? return BadRequest("Curso não encontrado");
+        var d = await _context.Disciplinas.FindAsync(input.DisciplinaId)
+            ?? return BadRequest("Disciplina não encontrada");
 
-            return Ok();
-        }
-
-        [HttpPut("{id}")]
-        public async Task<ActionResult> Put(int id, [FromBody] DisciplinaAlunoCursoDTO disciplinaAlunoCursoDTO)
+        var ent = new DisciplinaAlunoCurso
         {
-            var entidade = await _context.DisciplinaAlunoCursos.FindAsync(id);
-            if (entidade == null)
-                return NotFound();
+            AlunoId = input.AlunoId,
+            CursoId = input.CursoId,
+            DisciplinaId = input.DisciplinaId
+        };
+        _context.DisciplinaAlunoCursos.Add(ent);
+        await _context.SaveChangesAsync();
 
-            entidade.AlunoId = disciplinaAlunoCursoDTO.AlunoId;
-            entidade.CursoId = disciplinaAlunoCursoDTO.CursoId;
-            entidade.DisciplinaId = disciplinaAlunoCursoDTO.DisciplinaId;
-
-            _context.DisciplinaAlunoCursos.Update(entidade);
-            await _context.SaveChangesAsync();
-
-            return NoContent();
-        }
-
-        [HttpDelete("{id}")]
-        public async Task<ActionResult> Delete(int id)
+        var dto = new DisciplinaAlunoCursoDTO
         {
-            var entidade = await _context.DisciplinaAlunoCursos.FindAsync(id);
-            if (entidade == null)
-                return NotFound();
+            Id = ent.AlunoId + ent.CursoId + ent.DisciplinaId,
+            AlunoId = ent.AlunoId,
+            AlunoNome = a.Nome,
+            CursoId = ent.CursoId,
+            CursoDescricao = c.Descricao,
+            DisciplinaId = ent.DisciplinaId,
+            DisciplinaDescricao = d.Descricao
+        };
+        return CreatedAtAction(nameof(GetById), new { id = dto.Id }, dto);
+    }
 
-            _context.DisciplinaAlunoCursos.Remove(entidade);
-            await _context.SaveChangesAsync();
+    [HttpPut("{id}")]
+    public async Task<ActionResult> Put(int id, [FromBody] CreateDisciplinaAlunoCursoDTO input)
+    {
+        var ent = await _context.DisciplinaAlunoCursos.FindAsync(id)
+            ?? return NotFound();
+        if (!await _context.Alunos.AnyAsync(x => x.Id == input.AlunoId))
+            return BadRequest("Aluno não encontrado");
+        if (!await _context.Cursos.AnyAsync(x => x.Id == input.CursoId))
+            return BadRequest("Curso não encontrado");
+        if (!await _context.Disciplinas.AnyAsync(x => x.Id == input.DisciplinaId))
+            return BadRequest("Disciplina não encontrada");
 
-            return NoContent();
-        }
+        ent.AlunoId = input.AlunoId;
+        ent.CursoId = input.CursoId;
+        ent.DisciplinaId = input.DisciplinaId;
+        await _context.SaveChangesAsync();
+        return NoContent();
+    }
 
-        [HttpGet("{id}")]
-        public async Task<ActionResult<DisciplinaAlunoCursoDTO>> GetById(int id)
+    [HttpDelete("{id}")]
+    public async Task<ActionResult> Delete(int id)
+    {
+        var ent = await _context.DisciplinaAlunoCursos.FindAsync(id)
+            ?? return NotFound();
+        _context.DisciplinaAlunoCursos.Remove(ent);
+        await _context.SaveChangesAsync();
+        return NoContent();
+    }
+
+    [HttpGet("{id}")]
+    public async Task<ActionResult<DisciplinaAlunoCursoDTO>> GetById(int id)
+    {
+        var d = await _context.DisciplinaAlunoCursos
+            .Include(x => x.Aluno)
+            .Include(x => x.Curso)
+            .Include(x => x.Disciplina)
+            .FirstOrDefaultAsync(x => x.AlunoId + x.CursoId + x.DisciplinaId == id)
+            ?? return NotFound("Relação não encontrada");
+
+        return Ok(new DisciplinaAlunoCursoDTO
         {
-            var entidade = await _context.DisciplinaAlunoCursos
-                .Include(d => d.Aluno)
-                .Include(d => d.Curso)
-                .Include(d => d.Disciplina)
-                .FirstOrDefaultAsync(r => r.AlunoId + r.CursoId + r.DisciplinaId == id);
-
-            if (entidade == null)
-            {
-                return NotFound("Relação não encontrada");
-            }
-
-            var dto = new DisciplinaAlunoCursoDTO
-            {
-                Id = entidade.AlunoId + entidade.CursoId + entidade.DisciplinaId,
-                AlunoId = entidade.AlunoId,
-                AlunoNome = entidade.Aluno.Nome,
-                CursoId = entidade.CursoId,
-                CursoDescricao = entidade.Curso.Descricao,
-                DisciplinaId = entidade.DisciplinaId,
-                DisciplinaDescricao = entidade.Disciplina.Descricao
-            };
-
-            return Ok();
-        }
+            Id = id,
+            AlunoId = d.AlunoId,
+            AlunoNome = d.Aluno.Nome,
+            CursoId = d.CursoId,
+            CursoDescricao = d.Curso.Descricao,
+            DisciplinaId = d.DisciplinaId,
+            DisciplinaDescricao = d.Disciplina.Descricao
+        });
     }
 }

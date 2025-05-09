@@ -1,109 +1,79 @@
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
+// Controllers/DisciplinaController.cs
 using Microsoft.AspNetCore.Mvc;
-using Sistema_Escolar.Models;
-using Sistema_Escolar.DTO;
+using Microsoft.EntityFrameworkCore;
 using Sistema_Escolar.DB;
+using Sistema_Escolar.DTO;
+using Sistema_Escolar.Models;
 
-namespace Sistema_Escolar.Controllers
+[ApiController]
+[Route("api/[controller]")]
+public class DisciplinaController : ControllerBase
 {
-    [ApiController]
-    [Route("api/[controller]")]
-    public class DisciplinaController : ControllerBase
+    private readonly AppDbContext _context;
+    public DisciplinaController(AppDbContext ctx) => _context = ctx;
+
+    [HttpGet]
+    public async Task<ActionResult<IEnumerable<DisciplinaDTO>>> Get()
     {
-        private readonly AppDbContext _context;
-
-        public DisciplinaController(AppDbContext context)
-        {
-            _context = context;
-        }
-
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<DisciplinaDTO>>> Get()
-        {
-            var disciplinas = await _context.Disciplinas
-                .Include(d => d.Curso)
-                .Select(d => new DisciplinaDTO
-                {
-                    Id = d.Id,
-                    Descricao = d.Descricao,
-                    Curso = d.Curso.Descricao
-                })
-                .ToListAsync();
-
-            return Ok(disciplinas);
-        }
-
-        [HttpPost]
-        public async Task<ActionResult> Post([FromBody] DisciplinaDTO disciplinaDTO)
-        {
-            var curso = await _context.Cursos.FirstOrDefaultAsync(c => c.Descricao == disciplinaDTO.Curso);
-            if (curso == null) return BadRequest("Curso não encontrado");
-
-            var disciplina = new Disciplina
-            {
-                Descricao = disciplinaDTO.Descricao,
-                CursoId = curso.Id
-            };
-
-            _context.Disciplinas.Add(disciplina);
-            await _context.SaveChangesAsync();
-
-            return Ok();
-        }
-
-        [HttpPut("{id}")]
-        public async Task<ActionResult> Put(int id, [FromBody] DisciplinaDTO disciplinaDTO)
-        {
-            var disciplina = await _context.Disciplinas.FindAsync(id);
-            if (disciplina == null) return NotFound("Disciplina não encontrada");
-
-            var curso = await _context.Cursos.FirstOrDefaultAsync(c => c.Descricao == disciplinaDTO.Curso);
-            if (curso == null) return BadRequest("Curso não encontrado");
-
-            disciplina.Descricao = disciplinaDTO.Descricao;
-            disciplina.CursoId = curso.Id;
-
-            _context.Disciplinas.Update(disciplina);
-            await _context.SaveChangesAsync();
-
-            return NoContent();
-        }
-
-        [HttpDelete("{id}")]
-        public async Task<ActionResult> Delete(int id)
-        {
-            var disciplina = await _context.Disciplinas.FindAsync(id);
-            if (disciplina == null) return NotFound("Disciplina não encontrada");
-
-            _context.Disciplinas.Remove(disciplina);
-            await _context.SaveChangesAsync();
-
-            return NoContent();
-        }
-
-        [HttpGet("{id}")]
-        public async Task<ActionResult<DisciplinaDTO>> GetById(int id)
-        {
-            var disciplina = await _context.Disciplinas
-            .Where(d => d.Id == id)
+        var lista = await _context.Disciplinas
+            .Include(d => d.Curso)
             .Select(d => new DisciplinaDTO
             {
                 Id = d.Id,
                 Descricao = d.Descricao,
                 Curso = d.Curso.Descricao
             })
-            .FirstOrDefaultAsync();
+            .ToListAsync();
+        return Ok(lista);
+    }
 
-            if (disciplina == null)
-            {
-                return NotFound("Disciplina não encontrada!");
-            }
-            ;
+    [HttpPost]
+    public async Task<ActionResult<DisciplinaDTO>> Post([FromBody] DisciplinaDTO dto)
+    {
+        var curso = await _context.Cursos.FirstOrDefaultAsync(c => c.Descricao == dto.Curso)
+            ?? return BadRequest("Curso não encontrado")
+        var d = new Disciplina { Descricao = dto.Descricao, CursoId = curso.Id };
+        _context.Disciplinas.Add(d);
+        await _context.SaveChangesAsync();
+        dto.Id = d.Id;
+        return CreatedAtAction(nameof(GetById), new { id = d.Id }, dto);
+    }
 
-            return Ok(disciplina);
-        }
+    [HttpPut("{id}")]
+    public async Task<ActionResult> Put(int id, [FromBody] DisciplinaDTO dto)
+    {
+        var disc = await _context.Disciplinas.FindAsync(id)
+            ?? return NotFound("Disciplina não encontrada");
+        var curso = await _context.Cursos.FirstOrDefaultAsync(c => c.Descricao == dto.Curso)
+            ?? return BadRequest("Curso não encontrado");
+        disc.Descricao = dto.Descricao;
+        disc.CursoId = curso.Id;
+        await _context.SaveChangesAsync();
+        return NoContent();
+    }
+
+    [HttpDelete("{id}")]
+    public async Task<ActionResult> Delete(int id)
+    {
+        var disc = await _context.Disciplinas.FindAsync(id)
+            ?? return NotFound("Disciplina não encontrada");
+        _context.Disciplinas.Remove(disc);
+        await _context.SaveChangesAsync();
+        return NoContent();
+    }
+
+    [HttpGet("{id}")]
+    public async Task<ActionResult<DisciplinaDTO>> GetById(int id)
+    {
+        var d = await _context.Disciplinas
+            .Include(x => x.Curso)
+            .FirstOrDefaultAsync(x => x.Id == id)
+            ?? return NotFound("Disciplina não encontrada");
+        return Ok(new DisciplinaDTO
+        {
+            Id = d.Id,
+            Descricao = d.Descricao,
+            Curso = d.Curso.Descricao
+        });
     }
 }

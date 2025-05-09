@@ -2,41 +2,47 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Sistema_Escolar.DTO;
-using Sistema_Escolar.Models;
-using Sistema_Escolar.Services;
+using SistemaEscolarAPI.DTOs;
+using SistemaEscolarAPI.Models;
+using SistemaEscolarAPI.Services;
 using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Sistema_Escolar.Controllers
+namespace SistemaEscolarAPI.Controllers
 {
     [ApiController]
-    [Route("api/controller")]
+    [Route("api/[controller]")]
     public class LoginController : ControllerBase
     {
         [HttpPost]
-        public IActionResult Login([FromBody] LoginDTO LoginDTO)
+        public IActionResult Login([FromBody] LoginDTO loginDto)
         {
-            if (string.IsNullOrWhiteSpace(LoginDTO.Nome) || string.IsNullOrWhiteSpace(LoginDTO.Senha))
+            // IActionResult é uma interface que representa o resultado de uma ação em controlador no AspNet
+
+            // IsNullOrWhiteSpace verifica se  a string é nula ou contem apenas espaços em branco
+            if (string.IsNullOrWhiteSpace(loginDto.Username) || string.IsNullOrWhiteSpace(loginDto.Password))
             {
-                return BadRequest("Usuarios e senha são obrigatórios");
+                return BadRequest("Usuarios e senha são obrigatorios"); // aqui também retorna 400 com a mensagem incluida
             }
 
-            var usuarios = new List<Usuario>
+            var users = new List<Usuario>
             {
-                new Usuario { Nome = "admin", Senha = "admin", Cargo = "Administrador" },
-                new Usuario { Nome = "Kauã", Senha = "123", Cargo = "Funcionário" }
+                new Usuario {Username = "admin", Password = "123", Role = "Adminitrador"},
+                new Usuario {Username = "func", Password = "123", Role = "Funcionario"}
             };
 
-            var usuario = usuarios.FirstOrDefault(u => u.Nome == LoginDTO.Nome && u.Senha == LoginDTO.Senha);
+            var user = users.FirstOrDefault(u =>
+                u.Username == loginDto.Username &&
+                u.Password == loginDto.Password
+            );
 
-            if (usuario == null)
-            {
-                return Unauthorized(new { mensagem = "Usuário ou Senha incorreto." });
-            }
+            if (user == null)
+                return Unauthorized(new { message = "Usuario ou senha invalida" });
+            // Unauthorized retorna 401 com a mensagem informado que a validação não é a correta
 
-            var token = TokenService.GenerateToken(usuario);
+            var token = TokenService.GenerateToken(user);
             return Ok(new { token });
+
 
         }
     }

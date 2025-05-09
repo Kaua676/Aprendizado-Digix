@@ -1,96 +1,61 @@
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+// Controllers/CursoController.cs
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Sistema_Escolar.Models;
-using Sistema_Escolar.DTO;
 using Sistema_Escolar.DB;
+using Sistema_Escolar.DTO;
+using Sistema_Escolar.Models;
 
-namespace Sistema_Escolar.Controllers
+[ApiController]
+[Route("api/[controller]")]
+public class CursoController : ControllerBase
 {
-    [ApiController]
-    [Route("api/[controller]")]
-    public class CursoController : ControllerBase
+    private readonly AppDbContext _context;
+    public CursoController(AppDbContext ctx) => _context = ctx;
+
+    [HttpGet]
+    public async Task<ActionResult<IEnumerable<CursoDTO>>> Get()
     {
-        private readonly AppDbContext _context;
+        var lista = await _context.Cursos
+            .Select(c => new CursoDTO { Id = c.Id, Descricao = c.Descricao })
+            .ToListAsync();
+        return Ok(lista);
+    }
 
-        public CursoController(AppDbContext context)
-        {
-            _context = context;
-        }
+    [HttpPost]
+    public async Task<ActionResult<CursoDTO>> Post([FromBody] CursoDTO dto)
+    {
+        var curso = new Curso { Descricao = dto.Descricao };
+        _context.Cursos.Add(curso);
+        await _context.SaveChangesAsync();
+        dto.Id = curso.Id;
+        return CreatedAtAction(nameof(Get), new { id = curso.Id }, dto);
+    }
 
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<CursoDTO>>> Get()
-        {
-            var curso = await _context.Cursos
-                .Select(c => new CursoDTO
-                {
-                    Id = c.Id,
-                    Descricao = c.Descricao
-                })
-                .ToListAsync();
+    [HttpPut("{id}")]
+    public async Task<ActionResult> Put(int id, [FromBody] CursoDTO dto)
+    {
+        var curso = await _context.Cursos.FindAsync(id)
+            ?? return NotFound("Curso não encontrado");
+        curso.Descricao = dto.Descricao;
+        await _context.SaveChangesAsync();
+        return NoContent();
+    }
 
-            return Ok(curso);
-        }
+    [HttpDelete("{id}")]
+    public async Task<ActionResult> Delete(int id)
+    {
+        var curso = await _context.Cursos.FindAsync(id)
+            ?? return NotFound("Curso não encontrado");
+        _context.Cursos.Remove(curso);
+        await _context.SaveChangesAsync();
+        return NoContent();
+    }
 
-        [HttpPost]
-        public async Task<ActionResult> Post([FromBody] CursoDTO cursoDTO)
-        {
-            var curso = new Curso
-            {
-                Descricao = cursoDTO.Descricao
-            };
-
-            _context.Cursos.Add(curso);
-            await _context.SaveChangesAsync();
-
-            return Ok();
-        }
-
-        [HttpPut("{id}")]
-        public async Task<ActionResult> Put(int id, [FromBody] CursoDTO cursoDTO)
-        {
-            var curso = await _context.Cursos.FindAsync(id);
-            if (curso == null)
-                return NotFound("Curso não encontrado!");
-
-            curso.Descricao = cursoDTO.Descricao;
-
-            _context.Cursos.Update(curso);
-            await _context.SaveChangesAsync();
-
-            return Ok();
-        }
-
-        [HttpDelete("{id}")]
-        public async Task<ActionResult> Delete(int id)
-        {
-            var curso = await _context.Cursos.FindAsync(id);
-            if (curso == null)
-                return NotFound("Curso não encontrado!");
-
-            _context.Cursos.Remove(curso);
-            await _context.SaveChangesAsync();
-
-            return NoContent();
-        }
-
-        [HttpGet("{id}")]
-        public async Task<ActionResult<CursoDTO>> Get(int id)
-        {
-            var curso = await _context.Cursos.FindAsync(id);
-            if (curso == null)
-            {
-                return NotFound("Curso não encontrado!");
-            }
-            var cursoDTO = new CursoDTO
-            {
-                Id = curso.Id,
-                Descricao = curso.Descricao
-            };
-
-            return Ok(cursoDTO);
-        }
+    [HttpGet("{id}")]
+    public async Task<ActionResult<CursoDTO>> Get(int id)
+    {
+        var c = await _context.Cursos.FindAsync(id)
+            ?? return NotFound("Curso não encontrado");
+        return Ok(new CursoDTO { Id = c.Id, Descricao = c.Descricao });
     }
 }

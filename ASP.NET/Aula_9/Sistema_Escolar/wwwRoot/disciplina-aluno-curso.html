@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gestão de Matrículas | Sistema Escolar</title>
+
+    <!-- Bootstrap & Font-Awesome -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+    <!-- seu CSS local, servido pelo seu backend em wwwroot/css -->
+    <link rel="stylesheet" href="/css/styles-global.css" />
+    <style>
+        body,
+        html {
+            height: 100%;
+        }
+
+        main.container {
+            min-height: 60vh;
+            padding: 40px 0;
+        }
+
+        footer {
+            background: #212529;
+            color: #fff;
+            padding: 30px 0;
+        }
+
+        footer a {
+            color: #fff;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body class="bg-light d-flex flex-column">
+
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow-sm">
+        <div class="container">
+            <a class="navbar-brand" href="#"><i class="fas fa-graduation-cap me-2"></i>Sistema Escolar</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto me-3">
+                    <li class="nav-item"><a class="nav-link" href="alunos.html"><i
+                                class="fas fa-user me-1"></i>Alunos</a></li>
+                    <li class="nav-item"><a class="nav-link" href="cursos.html"><i
+                                class="fas fa-book me-1"></i>Cursos</a></li>
+                    <li class="nav-item"><a class="nav-link" href="disciplinas.html"><i
+                                class="fas fa-chalkboard-teacher me-1"></i>Disciplinas</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="#"><i
+                                class="fas fa-link me-1"></i>Matrículas</a></li>
+                </ul>
+                <button class="btn btn-outline-light bg-danger text-white" onclick="logout()">
+                    <i class="fas fa-sign-out-alt me-1"></i>Logout
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- CONTEÚDO -->
+    <main class="container flex-grow-1 py-4">
+        <h2>Gestão de Matrículas</h2>
+        <form id="relacaoForm" class="card card-body shadow-sm mb-4">
+            <input type="hidden" id="relacaoId" />
+            <div class="mb-3">
+                <label class="form-label" for="alunoSelect">Aluno</label>
+                <select class="form-select" id="alunoSelect" required>
+                    <option>…</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label class="form-label" for="cursoSelect">Curso</label>
+                <select class="form-select" id="cursoSelect" required>
+                    <option>…</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label class="form-label" for="disciplinaSelect">Disciplina</label>
+                <select class="form-select" id="disciplinaSelect" required>
+                    <option>…</option>
+                </select>
+            </div>
+            <button class="btn btn-primary" type="submit">Salvar</button>
+            <button class="btn btn-secondary" type="button" onclick="cancelarEdicao()">Cancelar</button>
+        </form>
+        <table class="table table-striped">
+            <thead class="table-dark">
+                <tr>
+                    <th>ID</th>
+                    <th>Aluno</th>
+                    <th>Curso</th>
+                    <th>Disciplina</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody id="relacaoTableBody"></tbody>
+        </table>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="mt-auto">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <h5>Sistema Escolar</h5>
+                    <p>Gerencie matrículas entre alunos, cursos e disciplinas.</p>
+                </div>
+                <div class="col-md-3 mb-3">
+                    <h5>Links Rápidos</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="alunos.html">Alunos</a></li>
+                        <li><a href="cursos.html">Cursos</a></li>
+                        <li><a href="disciplinas.html">Disciplinas</a></li>
+                        <li><a href="#">Matrículas</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3 mb-3">
+                    <h5>Contato</h5>
+                    <ul class="list-unstyled">
+                        <li><i class="fas fa-envelope me-2"></i>contato@escola.com</li>
+                        <li><i class="fas fa-phone me-2"></i>(xx) xxxx-xxxx</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="text-center border-top pt-3 mt-3">
+                <p class="mb-0">&copy; 2025 Sistema Escolar. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- SCRIPTS -->
+    <script>
+        const API = 'http://localhost:5271/api';
+        const R = 'DisciplinaAlunoCurso';
+
+        document.addEventListener('DOMContentLoaded', () => {
+            carregar('Aluno', 'alunoSelect');
+            carregar('Curso', 'cursoSelect');
+            carregar('Disciplina', 'disciplinaSelect');
+            carregarLista();
+            document.getElementById('relacaoForm').addEventListener('submit', salvar);
+        });
+
+        async function carregar(ent, selId) {
+            const sel = document.getElementById(selId);
+            sel.innerHTML = '<option>…</option>';
+            const r = await fetch(`${API}/${ent}`); const list = await r.json();
+            sel.innerHTML = '<option value="">Selecione</option>';
+            list.forEach(x => sel.innerHTML += `<option value="${x.id}">${x.nome ?? x.descricao}</option>`);
+        }
+
+        async function carregarLista() {
+            const tb = document.getElementById('relacaoTableBody'); tb.innerHTML = '';
+            const list = await fetch(`${API}/${R}`).then(r => r.json());
+            list.forEach(x => tb.innerHTML += `
+            <tr>
+              <td>${x.id}</td>
+              <td>${x.alunoNome}</td>
+              <td>${x.cursoDescricao}</td>
+              <td>${x.disciplinaDescricao}</td>
+              <td>
+                <button class="btn btn-warning btn-sm" onclick="editar(${x.id})">✎</button>
+                <button class="btn btn-danger btn-sm"  onclick="deletar(${x.id})">🗑️</button>
+              </td>
+            </tr>`);
+        }
+
+        async function salvar(ev) {
+            ev.preventDefault();
+            const id = document.getElementById('relacaoId').value;
+            const aS = document.getElementById('alunoSelect');
+            const cS = document.getElementById('cursoSelect');
+            const dS = document.getElementById('disciplinaSelect');
+            const dto = {
+                AlunoId: +aS.value, CursoId: +cS.value, DisciplinaId: +dS.value,
+                AlunoNome: aS.selectedOptions[0].text,
+                CursoDescricao: cS.selectedOptions[0].text,
+                DisciplinaDescricao: dS.selectedOptions[0].text
+            };
+            const url = id ? `${API}/${R}/${id}` : `${API}/${R}`;
+            const opts = { method: id ? 'PUT' : 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(dto) };
+            await fetch(url, opts);
+            document.getElementById('relacaoForm').reset();
+            carregarLista();
+        }
+
+        async function editar(id) {
+            const x = await fetch(`${API}/${R}/${id}`).then(r => r.json());
+            document.getElementById('relacaoId').value = x.id;
+            document.getElementById('alunoSelect').value = x.alunoId;
+            document.getElementById('cursoSelect').value = x.cursoId;
+            document.getElementById('disciplinaSelect').value = x.disciplinaId;
+        }
+
+        async function deletar(id) {
+            if (!confirm('Excluir?')) return;
+            await fetch(`${API}/${R}/${id}`, { method: 'DELETE' });
+            carregarLista();
+        }
+        function cancelarEdicao() { document.getElementById('relacaoForm').reset(); }
+    </script>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
