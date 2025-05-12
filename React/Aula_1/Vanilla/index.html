@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aula 1 - Vanilla</title>
+    <style>
+        body {
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        button {
+            margin: 5px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            cursor: pointer;
+        }
+
+        .tarefa {
+            margin: 10px 0;
+            padding: 10px;
+            border: 1px solid #ddd;
+        }
+
+        .concluida span {
+            text-decoration: line-through;
+            color: gray;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <!-- Exemplo 1 -->
+        <div id="saudacao-container"></div>
+
+        <!-- Exemplo 2 -->
+        <div id="contador-container">
+            <h2>Contador</h2>
+            <p id="contador-valor">0</p>
+            <button id="contador-dec">-1</button>
+            <button id="contador-reset">0</button>
+            <button id="contador-inc">+1</button>
+        </div>
+
+        <!-- Exemplo 3 -->
+        <div id="todo-container">
+            <h2>Lista de Tarefas</h2>
+            <input type="text" id="nova-tarefa" placeholder="Nova Tarefa">
+            <button id="add-tarefa">Enviar</button>
+            <div id="lista-tarefas"></div>
+        </div>
+    </div>
+
+    <script>
+        // Exemplo 1
+        function renderizarSaudacao(nome, containerId) {
+            const container = document.getElementById(containerId);
+            container.innerHTML = `<h1> Olá, ${nome}! </h1>`;
+        }
+
+        renderizarSaudacao('Joao', 'saudacao-container');
+    </script>
+
+    <script>
+        // Exemplo 2
+        let contador = 0;
+        const contadorValor = document.getElementById('contador-valor');
+        const attContador = () => contadorValor.textContent = contador;
+        document.getElementById('contador-inc').addEventListener('click', () => {
+            contador++;
+            attContador();
+        });
+        document.getElementById('contador-dec').addEventListener('click', () => {
+            contador--;
+            attContador();
+        });
+        document.getElementById('contador-reset').addEventListener('click', () => {
+            contador = 0;
+            attContador();
+        });
+    </script>
+
+    <script>
+        // Exemplo 3: To-do List
+        let tarefas = [];
+        const lista = document.getElementById('lista-tarefas');
+
+        function renderizarTarefas() {
+            lista.innerHTML = tarefas.map((tarefa, index) => `
+        <div class="tarefa ${tarefa.concluida ? 'concluida' : ''}">
+          <span>${tarefa.texto}</span>
+          <button onclick="marcarTarefa(${index})">${tarefa.concluida ? 'Desmarcar' : 'Concluir'}</button>
+          <button onclick="removerTarefa(${index})">🗑️</button>
+        </div>
+      `).join('');
+        }
+
+        window.marcarTarefa = (index) => {
+            tarefas[index].concluida = !tarefas[index].concluida;
+            renderizarTarefas();
+        };
+
+        window.removerTarefa = (index) => {
+            tarefas = tarefas.filter((_, i) => i !== index);
+            renderizarTarefas();
+        };
+
+        document.getElementById('add-tarefa').addEventListener('click', () => {
+            const input = document.getElementById('nova-tarefa');
+            const texto = input.value.trim();
+            if (texto) {
+                tarefas.push({ texto, concluida: false });
+                input.value = '';
+                renderizarTarefas();
+            }
+        });
+    </script>
+</body>
+
+</html>

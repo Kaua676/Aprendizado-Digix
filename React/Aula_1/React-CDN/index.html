@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Crossorigin é um atributo que indica que o recurso deve ser carregado com credenciais (cookies e headers http) -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <!-- Babel é uma ferramenta JavaScript que transpila código moderno para versões compatíveis com navegadores antigos. -->
+    <!-- No React, o Babel é essencial porque converte o código JSX (sintaxe parecida com HTML dentro do JavaScript) em JavaScript puro que os navegadores conseguem entender. -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <style>
+        body {
+            font-family: sans-serif;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: auto;
+        }
+
+        button {
+            margin: 5px;
+            padding: 8px 12px;
+            cursor: pointer;
+        }
+
+        input {
+            padding: 8px;
+            margin-right: 5px;
+            width: 60%;
+        }
+
+        .tarefa {
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin-top: 8px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .concluida span {
+            text-decoration: line-through;
+            color: gray;
+        }
+    </style>
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="root">
+
+    </div>
+    <script type="text/babel">
+        const { useState } = React;
+
+        function Saudacao({ nome }) {
+            return <h1> Olá, {nome}! </h1>
+        }
+
+        function Contador() {
+            const [contador, setContador] = useState(0);
+            return (
+                <div>
+                    <h2>Contador</h2>
+                    <p>{contador}</p>
+                    <button onClick={() => {
+                        setContador(contador + 1)
+                    }}>+1</button>
+                    <button onClick={() => {
+                        setContador(0)
+                    }}>0</button>
+                    <button onClick={() => {
+                        setContador(contador - 1)
+                    }}>-1</button>
+                </div>
+            )
+        }
+
+        function MostrarNumero({ nome, number }) {
+            console.log(typeof number)
+            return <h1> {nome} Aqui está o seu numero {number} </h1>
+        }
+
+        function TodoList() {
+            const [tarefas, setTarefas] = useState([]);
+            const [novaTarefa, setNovaTarefa] = useState({ texto: "", concluida: false });
+
+            console.log(novaTarefa);
+            console.log(tarefas);
+
+            const adicionarTarefa = () => {
+                if (novaTarefa.trim() === "") return;
+                setTarefas([...tarefas, { texto: novaTarefa, concluida: false }]);
+                setNovaTarefa("");
+            };
+
+            const alternarConclusao = (index) => {
+                const novasTarefas = [...tarefas];
+                novasTarefas[index].concluida = !novasTarefas[index].concluida;
+                setTarefas(novasTarefas);
+            };
+
+            const removerTarefa = (index) => {
+                const novasTarefas = tarefas.filter((_, i) => i !== index);
+                setTarefas(novasTarefas);
+            };
+
+            return (
+                <div>
+                    <h2>Lista de Tarefas</h2>
+                    <input
+                        type="text"
+                        value={novaTarefa}
+                        placeholder="Nova tarefa"
+                        onChange={(e) => setNovaTarefa(e.target.value)}
+                    />
+                    <button onClick={adicionarTarefa}>Adicionar</button>
+
+                    {tarefas.map((tarefa, index) => (
+                        <div
+                            key={index}
+                            className={`tarefa ${tarefa.concluida ? "concluida" : ""}`}
+                        >
+                            <span>{tarefa.texto}</span>
+                            <div>
+                                <button onClick={() => alternarConclusao(index)}>
+                                    {tarefa.concluida ? "Desmarcar" : "Concluir"}
+                                </button>
+                                <button onClick={() => removerTarefa(index)}>🗑️</button>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            );
+        }
+
+        function App() {
+            return (
+                <div>
+                    <div className="container">
+                        <Saudacao nome="João" />
+                        <Contador />
+                        <TodoList />
+                        <MostrarNumero number={8} />
+                    </div>
+                </div>
+            );
+        }
+
+        const root = ReactDOM.createRoot(document.getElementById("root"));
+        root.render(<App />);
+    </script>
+</body>
+
+</html>
+
+<!-- CDN é Content Delivery Network, que é uma rede de servidores distribuidos que entrega o conteúdo que a gente faz a requisição -->
