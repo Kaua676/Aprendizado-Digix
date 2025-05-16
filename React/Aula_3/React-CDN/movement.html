@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login React</title>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <style>
+        body,
+        html {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            height: 100%;
+        }
+
+        #game-area {
+            width: 100vw;
+            height: 100vh;
+            position: relative;
+            background-color: #f0f0f0;
+        }
+
+        #player {
+            width: 50px;
+            height: 50px;
+            background-color: #3498db;
+            position: absolute;
+            transition: left 0.1s linear, top 0.1s linear;
+        }
+
+        #controls {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            font-family: sans-serif;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState, useEffect, useRef } = React;
+
+        function Game() {
+            const [position, setPosition] = useState({
+                x: window.innerWidth / 2,
+                y: window.innerHeight / 2,
+            });
+
+            const [direction, setDirection] = useState("right");
+            const speed = 50;
+            const intervalRef = useRef(null);
+
+            const handleKeyDown = (e) => {
+                switch (e.key) {
+                    case "ArrowUp":
+                    case "w":
+                        if (direction !== "down") setDirection("up");
+                        break;
+                    case "ArrowDown":
+                    case "s":
+                        if (direction !== "up") setDirection("down");
+                        break;
+                    case "ArrowLeft":
+                    case "a":
+                        if (direction !== "right") setDirection("left");
+                        break;
+                    case "ArrowRight":
+                    case "d":
+                        if (direction !== "left") setDirection("right");
+                        break;
+                }
+            };
+
+            useEffect(() => {
+                window.addEventListener("keydown", handleKeyDown);
+                return () => window.removeEventListener("keydown", handleKeyDown);
+            }, [direction]);
+
+            useEffect(() => {
+                intervalRef.current = setInterval(() => {
+                    setPosition((prev) => {
+                        let newX = prev.x;
+                        let newY = prev.y;
+
+                        switch (direction) {
+                            case "up":
+                                newY -= speed;
+                                break;
+                            case "down":
+                                newY += speed;
+                                break;
+                            case "left":
+                                newX -= speed;
+                                break;
+                            case "right":
+                                newX += speed;
+                                break;
+                        }
+
+                        const maxX = window.innerWidth - 50;
+                        const maxY = window.innerHeight - 50;
+
+                        return {
+                            x: Math.max(0, Math.min(newX, maxX)),
+                            y: Math.max(0, Math.min(newY, maxY)),
+                        };
+                    });
+                }, 100);
+
+                return () => clearInterval(intervalRef.current);
+            }, [direction]);
+
+            return (
+                <div id="game-area">
+                    <div
+                        id="player"
+                        style={{ left: `${position.x}px`, top: `${position.y}px` }}
+                    />
+                    <div id="controls">Use WASD ou setas para mudar a direção</div>
+                </div>
+            );
+        }
+
+        function App() {
+            return (
+                <div>
+                    <Game />
+                </div>
+            );
+        }
+
+        ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+    </script>
+</body>
+
+</html>

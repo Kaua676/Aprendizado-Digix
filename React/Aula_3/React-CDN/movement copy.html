@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login React</title>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <style>
+        #game-area {
+            width: 100vw;
+            height: 100vh;
+            position: relative;
+            overflow: hidden;
+            background-color: #f0f0f0;
+            background-image:
+                linear-gradient(to right, #ccc 1px, transparent 1px),
+                linear-gradient(to bottom, #ccc 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+
+
+        #controls {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            font-family: sans-serif;
+            font-size: 18px;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState, useEffect, useRef } = React;
+
+        function Game() {
+            const speed = 100;
+            const blockSize = 20;
+            const initialSnake = [
+                { x: 100, y: 100 },
+                { x: 80, y: 100 },
+            ];
+
+            const [snake, setSnake] = useState(initialSnake);
+            const [direction, setDirection] = useState("right");
+            const [food, setFood] = useState(generateFood());
+            const [score, setScore] = useState(0);
+            const [gameOver, setGameOver] = useState(false);
+            const intervalRef = useRef(null);
+
+            function generateFood() {
+                return {
+                    x: Math.floor(Math.random() * (window.innerWidth / blockSize)) * blockSize,
+                    y: Math.floor(Math.random() * (window.innerHeight / blockSize)) * blockSize,
+                };
+            }
+
+            const handleKeyDown = (e) => {
+                switch (e.key) {
+                    case "ArrowUp":
+                    case "w":
+                        if (direction !== "down") setDirection("up");
+                        break;
+                    case "ArrowDown":
+                    case "s":
+                        if (direction !== "up") setDirection("down");
+                        break;
+                    case "ArrowLeft":
+                    case "a":
+                        if (direction !== "right") setDirection("left");
+                        break;
+                    case "ArrowRight":
+                    case "d":
+                        if (direction !== "left") setDirection("right");
+                        break;
+                }
+            };
+
+            const playEatSound = () => {
+                const audio = new Audio("https://actions.google.com/sounds/v1/cartoon/wood_plank_flicks.ogg");
+                audio.play();
+            };
+
+            useEffect(() => {
+                window.addEventListener("keydown", handleKeyDown);
+                return () => window.removeEventListener("keydown", handleKeyDown);
+            }, [direction]);
+
+            useEffect(() => {
+                if (gameOver) return;
+
+                intervalRef.current = setInterval(() => {
+                    setSnake((prevSnake) => {
+                        const head = { ...prevSnake[0] };
+
+                        switch (direction) {
+                            case "up":
+                                head.y -= blockSize;
+                                break;
+                            case "down":
+                                head.y += blockSize;
+                                break;
+                            case "left":
+                                head.x -= blockSize;
+                                break;
+                            case "right":
+                                head.x += blockSize;
+                                break;
+                        }
+
+                        // Check wall collision
+                        if (
+                            head.x < 0 ||
+                            head.y < 0 ||
+                            head.x >= window.innerWidth ||
+                            head.y >= window.innerHeight
+                        ) {
+                            setGameOver(true);
+                            return prevSnake;
+                        }
+
+                        // Check self collision
+                        for (let i = 1; i < prevSnake.length; i++) {
+                            if (prevSnake[i].x === head.x && prevSnake[i].y === head.y) {
+                                setGameOver(true);
+                                return prevSnake;
+                            }
+                        }
+
+                        const newSnake = [head, ...prevSnake];
+
+                        if (head.x === food.x && head.y === food.y) {
+                            setScore((s) => s + 1);
+                            setFood(generateFood());
+                            playEatSound();
+                        } else {
+                            newSnake.pop();
+                        }
+
+                        return newSnake;
+                    });
+                }, 100);
+
+                return () => clearInterval(intervalRef.current);
+            }, [direction, food, gameOver]);
+
+            // Esse useEffect garante que o jogo realmente pare quando gameOver for true
+            useEffect(() => {
+                if (gameOver) {
+                    clearInterval(intervalRef.current);
+                }
+            }, [gameOver]);
+
+            return (
+                <div id="game-area">
+                    {snake.map((segment, index) => (
+                        <div
+                            key={index}
+                            style={{
+                                position: "absolute",
+                                width: `${blockSize}px`,
+                                height: `${blockSize}px`,
+                                backgroundColor: index === 0 ? "#2980b9" : "#3498db",
+                                left: `${segment.x}px`,
+                                top: `${segment.y}px`,
+                            }}
+                        />
+                    ))}
+                    <div
+                        style={{
+                            position: "absolute",
+                            width: `${blockSize}px`,
+                            height: `${blockSize}px`,
+                            backgroundColor: "red",
+                            border: "2px solid #fff",
+                            left: `${food.x}px`,
+                            top: `${food.y}px`,
+                            borderRadius: "50%",
+                        }}
+                    />
+                    <div id="controls">
+                        Pontos: {score}
+                        {gameOver && <div style={{ color: "red" }}>Fim de jogo!</div>}
+                    </div>
+                </div>
+            );
+        }
+
+        function App() {
+            return <Game />;
+        }
+
+        ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+    </script>
+
+
+</body>
+
+</html>
