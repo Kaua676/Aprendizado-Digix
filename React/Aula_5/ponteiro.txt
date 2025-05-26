@@ -1,0 +1,19 @@
+Link simpolico é um atalho para um arquivo ou diretório. Ele é criado com o comando ln -s.
+// O link simbólico é um arquivo especial que contém uma referência a outro arquivo ou diretório.
+// Ele é usado para criar atalhos ou referências a arquivos ou diretórios em locais diferentes do sistema de arquivos.
+
+Para criar um link simbólico, você pode usar o seguinte comando:
+1. Abra o Prompt de Comando como Administrador
+ -> Clique win + R
+ -> digite ctrl+shift + enter
+
+
+2. Navegue até a pasta do projeto
+No terminal aberto como administrador, digite:
+
+cd C:\Users\gabri\Documents\Teste\aula2
+
+3. Crie o link simbólico
+Agora sim, execute:
+
+mklink /D node_modules ..\Aula_4\vite-project\node_modules

@@ -4,7 +4,6 @@ import Exercicio3 from "./exercicio3/Exercicio3.jsx";
 import Exercicio4 from "./exercicio4/Exercicio4.jsx";
 import Exercicio5 from "./exercicio5/Exercicio5.jsx";
 import Exercicio6 from "./exercicio6/Exercicio6.jsx";
-import Desafio from "./desafio/Desafio.jsx";
 import Header from "./exemplos/Header.jsx";
 import Footer from "./exemplos/Footer.jsx";
 
@@ -29,7 +28,6 @@ function App() {
       <Footer />
 
       <Exercicio6 />
-      <Desafio />
     </>
   );
 }
